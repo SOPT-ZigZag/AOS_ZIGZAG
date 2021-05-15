@@ -14,22 +14,30 @@
 ### 1. UI Flow
 ![AOS_UI_FLOW 001](https://user-images.githubusercontent.com/70698151/118375041-20b33900-b5fa-11eb-95e4-8aaeb30144e3.jpeg)
 
+<br>
+
+### 2. 역할 분담을 위한 다빈의 고뇌
+#### ⭐️ Home
+![hotaek_tech_spec 001](https://user-images.githubusercontent.com/70698151/118376652-4cd3b780-b604-11eb-96d4-e92a15a66d6c.jpeg)
+
+#### ⭐️ Story
+![yeonsu_tech_spec](https://user-images.githubusercontent.com/70698151/118376675-6bd24980-b604-11eb-838b-17d9580e2a6e.jpeg)
 
 <br>
 
-### 2. Commit Message Convention
+### 3. Commit Message Convention
 
 [Commit Message Convention](https://github.com/8-seconds/WIKI_FOR_8_SECONDS/blob/main/GitHub/CommitMessageConvention.md)
 
 <br>
 
-### 3. Android Naming Convention
+### 4. Android Naming Convention
 
 [Android Naming Convention](https://github.com/8-seconds/WIKI_FOR_8_SECONDS/blob/main/Android/tip/AndroidNamingConvention.md)
 
 <br>
 
-### 4. Issue Naming
+### 5. Issue Naming
 
 #### 1.3.1. Issue Naming Rule
 
