@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AOS_ZIGZAG</string>
+    <!-- TODO: Remove or c어hange this placeholder text -->
+    <string name="home">홈</string>
+    <string name="store">스토어</string>
+    <string name="moa">모아보기</string>
+    <string name="heart">찜</string>
+    <string name="my_page">마이페이지</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
