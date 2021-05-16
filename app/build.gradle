@@ -2,7 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
-
+task wrapper(type: Wrapper){
+    gradleVersion = '2.14.1'
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -50,3 +52,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}
