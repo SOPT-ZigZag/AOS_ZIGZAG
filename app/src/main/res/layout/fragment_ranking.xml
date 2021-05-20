@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.view.store.RankingFragment">
 
     <TextView
@@ -116,7 +116,9 @@
         android:id="@+id/rv_ranking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="14dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,11 +133,13 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:textSize="13sp"
-        android:textColor="@color/dark_gray"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/rectangle_border_gray_5"
-        android:text="@string/more_ranking"
         android:fontFamily="@font/noto_sans_kr_medium"
+        android:text="@string/more_ranking"
+        android:textColor="@color/dark_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_ranking" />
