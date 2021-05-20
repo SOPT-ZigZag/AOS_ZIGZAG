@@ -22,4 +22,9 @@
         app:fontWeight="700"
         app:fontStyle="normal" />
 
+    <font
+        app:font="@font/roboto_medium"
+        app:fontWeight="500"
+        app:fontStyle="normal" />
+
 </font-family>
