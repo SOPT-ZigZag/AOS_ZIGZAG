@@ -7,7 +7,7 @@ import org.sopt.databinding.ItemStoryBinding
 import org.sopt.ui.view.store.data.model.StoryData
 
 class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>() {
-    private var storyButtonClickListener: ((StoryData)-> Unit) ?= null
+    private var storyButtonClickListener: ((Int)-> Unit) ?= null
     private val _data = mutableListOf<StoryData>()
     var data : List<StoryData> = _data
         set(value) {
@@ -16,7 +16,7 @@ class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>(
             notifyDataSetChanged()
         }
 
-    fun setDeleteButtonClickListener(listener : (StoryData)-> Unit) {
+    fun setStoryButtonClickListener(listener : (Int)-> Unit) {
         this.storyButtonClickListener = listener
     }
 
@@ -39,7 +39,13 @@ class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>(
 
         fun bind(storyData: StoryData) {
             binding.apply {
-                ivSmallStory.setOnClickListener { storyButtonClickListener?.invoke(storyData) }
+                with(storyData) {
+                    tvBrand.text = brand
+                    tvView.text = view
+                    ivStory.setImageResource(img)
+                    ivSmallStory.setImageResource(img)
+                    ivSmallStory.setOnClickListener { storyButtonClickListener?.invoke(img) }
+                }
             }
         }
     }

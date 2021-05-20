@@ -13,12 +13,22 @@ import org.sopt.ui.view.store.data.model.BrandData
 
 class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>() {
     private val _data = mutableListOf<BrandData>()
+    private var viewType = ALL_BRAND
     var data : List<BrandData> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
             notifyDataSetChanged()
         }
+
+    fun setItemViewType(type : Int) {
+        viewType = type
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return viewType
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandViewHolder {
         val binding: ItemStoreBinding = ItemStoreBinding.inflate(
@@ -29,23 +39,29 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
     }
 
     override fun onBindViewHolder(holder: BrandViewHolder, position: Int) {
-        holder.bind(_data[position], position)
+        holder.bind(data[position], position)
     }
 
     override fun getItemCount(): Int = _data.size
 
-    class BrandViewHolder(private val binding: ItemStoreBinding, private val context: Context) :
+    inner class BrandViewHolder(private val binding: ItemStoreBinding, private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(brandData: BrandData, position: Int) {
             binding.apply {
                 with(brandData) {
-                    tvNum.text = position.toString()
+                    if(getItemViewType(position) == Z_ONLY) {
+                        if(!zOnly)
+                            clStore.visibility = View.GONE
+                    }
+
+                    tvNum.text = (position + 1).toString()
                     tvStore.text = name
                     tvType.text = type
                     tvCoupon.text = coupon
                     tvFollower.text = follower
+                    ivCircleStore.setImageResource(img)
 
                     if (!zOnly)
                         ivZOnly.visibility = View.INVISIBLE
@@ -67,5 +83,10 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
                 ibStar.setOnClickListener { it.isSelected = !it.isSelected }
             }
         }
+    }
+
+    companion object {
+        const val ALL_BRAND = 0
+        const val Z_ONLY= 1
     }
 }

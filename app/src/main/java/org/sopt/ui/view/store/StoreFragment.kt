@@ -1,5 +1,6 @@
 package org.sopt.ui.view.store
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,15 +9,19 @@ import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import org.sopt.R
 import org.sopt.databinding.FragmentStoreBinding
-import org.sopt.ui.adapter.BrandListAdapter
 import org.sopt.ui.adapter.StoreViewPagerAdapter
-import org.sopt.ui.view.store.data.datasource.BrandDataSource
+import org.sopt.ui.adapter.StoryListAdapter
+import org.sopt.ui.view.store.data.datasource.StoreDataSource
+import org.sopt.ui.view.store.data.datasource.StoreDataSourceImpl
+import org.sopt.ui.view.story.StoryActivity
 
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private lateinit var storeViewPagerAdapter: StoreViewPagerAdapter
+    private val storyListAdapter = StoryListAdapter()
+    private lateinit var storeDataSource: StoreDataSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +36,9 @@ class StoreFragment : Fragment() {
         val tabLabel = listOf(getString(R.string.ranking), getString(R.string.bookmark))
 
         binding.apply {
+            storeDataSource = StoreDataSourceImpl()
             storeViewPagerAdapter = StoreViewPagerAdapter(this@StoreFragment)
+
             with(storeViewPagerAdapter) {
                 fragmentList = listOf(RankingFragment(), BookmarkFragment())
 
@@ -42,12 +49,21 @@ class StoreFragment : Fragment() {
                 tab.text = tabLabel[position]
             }.attach()
 
-            rvStory
+            rvStory.adapter = storyListAdapter
+            storyListAdapter.data = storeDataSource.getStoryData()
+
+            storyListAdapter.setStoryButtonClickListener {
+                startActivity(Intent(requireActivity(), StoryActivity::class.java).putExtra(IMG, it))
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val IMG = "img"
     }
 }
