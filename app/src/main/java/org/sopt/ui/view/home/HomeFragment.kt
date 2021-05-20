@@ -37,7 +37,11 @@ class HomeFragment : Fragment() {
         val homeTabLayout = binding.tlHome
         TabLayoutMediator(homeTabLayout, binding.vpHome ){tab, position ->
             tab.text = homeTabText[position]
-
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
