@@ -7,5 +7,25 @@
     <string name="heart">찜</string>
     <string name="my_page">마이페이지</string>
 
+    <!-- store -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bookmark_store">즐겨찾기한 스토어 스토리</string>
+    <string name="shopping_mall">쇼핑몰</string>
+    <string name="brand">브랜드</string>
+    <string name="cloth">의류</string>
+    <string name="style">스타일</string>
+    <string name="age">연령대</string>
+    <string name="ranking">랭킹</string>
+    <string name="bookmark">즐겨찾기</string>
+    <string name="more_ranking">랭킹 더보기️ 😎</string>
+    <string name="sixsixgirls">육육걸즈</string>
+
+    <!-- tools -->
+    <string name="view">11.5만</string>
+    <string name="minus">-</string>
+    <string name="follower_num">194.5만</string>
+    <string name="moderntage">모던티지</string>
+    <string name="one">1</string>
+    <string name="simple_lovely">심플베이직.러블리</string>
+    <string name="max_1000">최대 1,000원 쿠폰</string>
 </resources>

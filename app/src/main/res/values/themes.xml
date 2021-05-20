@@ -21,4 +21,22 @@
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">9sp</item>
     </style>
+
+    <style name="ChipButtonStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textSize">10sp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingLeft">11dp</item>
+        <item name="android:paddingRight">11dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
+        <item name="android:textColor">@color/cacao_dark</item>
+        <item name="android:background">@drawable/selector_chip_btn</item>
+    </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">13sp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
+    </style>
 </resources>
