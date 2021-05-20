@@ -1,6 +1,9 @@
 package org.sopt.ui.view.home.tab
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +17,18 @@ import org.sopt.ui.view.home.data.LocalHomeTabViewPagerDataSource
 import org.sopt.ui.view.home.model.HomeTabViewPagerImage
 
 class HomeTab : Fragment() {
-    private val homeTabViewPagerAdapter by lazy{SampleAdapter.HomeTabViewPagerAdapter()}
-    private lateinit var homeViewPagerDataSource : HomeViewPagerDataSource
+    private val homeImageViewPagerAdapter = SampleAdapter.HomeTabViewPagerAdapter()
+    private lateinit var homeViewPagerDataSource: HomeViewPagerDataSource
     private var _binding: FragmentHomeTabBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
+    private var numViewPager = 4
+    private var currentPosition = 0
+    private var homeViewPagerHandler = HomeViewPagerHandler()
+    private val intervalTime = 2000.toLong()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeTabBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,18 +40,66 @@ class HomeTab : Fragment() {
     }
 
     private fun initHomeImageViewPager() {
-        val homeImageViewPager : ViewPager2 = binding.vpHomeImage
-        homeImageViewPager.adapter = homeTabViewPagerAdapter
-        homeTabViewPagerAdapter.submitList(fetchData())
+        binding.vpHomeImage.adapter = homeImageViewPagerAdapter
+        homeImageViewPagerAdapter.data = getImageList()
+        binding.sdiHomeTabImage.setViewPager2(binding.vpHomeImage)
+        binding.vpHomeImage.setCurrentItem(currentPosition, false)
+
+        binding.vpHomeImage.apply {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                    when (state) {
+                        ViewPager2.SCROLL_STATE_IDLE -> autoScrollStart(intervalTime)
+                        ViewPager2.SCROLL_STATE_DRAGGING -> autoScrollStop()
+                    }
+                }
+            })
+        }
     }
 
-    private fun fetchData() : List<HomeTabViewPagerImage>{
-        homeViewPagerDataSource = LocalHomeTabViewPagerDataSource()
-        return homeViewPagerDataSource.fetchData()
+    private fun getImageList(): MutableList<HomeTabViewPagerImage> {
+        return mutableListOf<HomeTabViewPagerImage>(HomeTabViewPagerImage(R.drawable.ic_image_1),
+                HomeTabViewPagerImage(R.drawable.ic_image_2), HomeTabViewPagerImage(R.drawable.ic_image_3),
+                HomeTabViewPagerImage(R.drawable.ic_image_4))
+    }
+
+    private fun autoScrollStart(intervalTime: Long) {
+        homeViewPagerHandler.removeMessages(0)
+        homeViewPagerHandler.sendEmptyMessageDelayed(0, intervalTime)
+    }
+
+    private fun autoScrollStop() {
+        homeViewPagerHandler.removeMessages(0)
+    }
+
+    private inner class HomeViewPagerHandler : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+
+            if (msg.what == 0) {
+                binding.vpHomeImage.setCurrentItem(++currentPosition, true)
+                autoScrollStart(intervalTime)
+            }
+            if (currentPosition == 4){
+                currentPosition = -1
+            }
+
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        autoScrollStart(intervalTime)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        autoScrollStop()
     }
 }

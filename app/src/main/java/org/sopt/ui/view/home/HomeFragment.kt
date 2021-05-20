@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
         val homeViewPagerAdapter = SampleAdapter.PagerFragmentStateAdapter(requireActivity())
         binding.vpHome.adapter = homeViewPagerAdapter
-
+        binding.vpHome.isUserInputEnabled = false
         val homeTabLayout = binding.tlHome
         TabLayoutMediator(homeTabLayout, binding.vpHome ){tab, position ->
             tab.text = homeTabText[position]

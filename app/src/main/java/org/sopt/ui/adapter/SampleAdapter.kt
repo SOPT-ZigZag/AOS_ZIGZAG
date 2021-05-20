@@ -36,22 +36,19 @@ class SampleAdapter {
     }
 
 
-    class HomeTabViewPagerAdapter : ListAdapter<HomeTabViewPagerImage, HomeTabViewPagerAdapter.HomeTabViewPagerViewHolder>(HomeTabViewPagerViewHolder.HomeTabViewPagerDiffUtil) {
+    class HomeTabViewPagerAdapter : RecyclerView.Adapter<HomeTabViewPagerAdapter.HomeTabViewPagerViewHolder>() {
+        private val _data = mutableListOf<HomeTabViewPagerImage>()
+        var data: List<HomeTabViewPagerImage> = _data
+            set(value) {
+                _data.clear()
+                _data.addAll(value)
+                notifyDataSetChanged()
+            }
 
         class HomeTabViewPagerViewHolder(private val binding: ItemHomeTabImageBinding) :
                 RecyclerView.ViewHolder(binding.root) {
             fun onBind(homeViewPagerData: HomeTabViewPagerImage) {
-                Glide.with(itemView).load(homeViewPagerData).into(binding.ivHomeTabImage)
-            }
-
-            object HomeTabViewPagerDiffUtil : DiffUtil.ItemCallback<HomeTabViewPagerImage>() {
-                override fun areItemsTheSame(oldItem: HomeTabViewPagerImage, newItem: HomeTabViewPagerImage): Boolean {
-                    return oldItem.hashCode() == newItem.hashCode()
-                }
-
-                override fun areContentsTheSame(oldItem: HomeTabViewPagerImage, newItem: HomeTabViewPagerImage): Boolean {
-                    return oldItem == newItem
-                }
+               binding.ivHomeTabImage.setImageResource(homeViewPagerData.homeViewPager)
             }
         }
 
@@ -62,7 +59,11 @@ class SampleAdapter {
         }
 
         override fun onBindViewHolder(holder: HomeTabViewPagerViewHolder, position: Int) {
-            holder.onBind(getItem(position))
+            holder.onBind(_data[position])
+        }
+
+        override fun getItemCount(): Int {
+            return _data.size
         }
 
     }
