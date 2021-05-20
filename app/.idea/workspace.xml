@@ -38,9 +38,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a919c2d1-7fb2-4292-be08-49600ebe5a89" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="a919c2d1-7fb2-4292-be08-49600ebe5a89" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
