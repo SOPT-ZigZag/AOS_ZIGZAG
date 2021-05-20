@@ -6,6 +6,13 @@
     <string name="moa">모아보기</string>
     <string name="heart">찜</string>
     <string name="my_page">마이페이지</string>
-
+    <string name="ye_bin">윤예빈</string>
+    <string name="rec_item">님을 위한 추천아이템</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intense">인텐스</string>
+    <string name="today_name">[셈디, 미희 착용]엘칸</string>
+    <string name="z_discount">제트할인가</string>
+    <string name="price"><s>129,000</s></string>
+    <string name="percent">72%</string>
+    <string name="price_x">35,900</string>
 </resources>

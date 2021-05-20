@@ -12,12 +12,17 @@ import androidx.viewpager2.widget.ViewPager2
 import org.sopt.R
 import org.sopt.databinding.FragmentHomeTabBinding
 import org.sopt.ui.adapter.SampleAdapter
+import org.sopt.ui.view.home.data.HomeTodayGoDataSource
 import org.sopt.ui.view.home.data.HomeViewPagerDataSource
 import org.sopt.ui.view.home.data.LocalHomeTabViewPagerDataSource
+import org.sopt.ui.view.home.data.LocalHomeTodayGoDataSource
 import org.sopt.ui.view.home.model.HomeTabViewPagerImage
+import org.sopt.ui.view.home.model.HomeTodayGoInfo
 
 class HomeTab : Fragment() {
     private val homeImageViewPagerAdapter = SampleAdapter.HomeTabViewPagerAdapter()
+    private val homeTodayGoAdapter = SampleAdapter.HomeTodayGoAdapter()
+    private lateinit var homeTodayGoDataSource : HomeTodayGoDataSource
     private lateinit var homeViewPagerDataSource: HomeViewPagerDataSource
     private var _binding: FragmentHomeTabBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
@@ -37,6 +42,7 @@ class HomeTab : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initHomeImageViewPager()
+        initHomeTodayGo()
     }
 
     private fun initHomeImageViewPager() {
@@ -57,6 +63,19 @@ class HomeTab : Fragment() {
             })
         }
     }
+    private fun initHomeTodayGo(){
+        binding.rvTodayDelivery.adapter = homeTodayGoAdapter
+        homeTodayGoAdapter.submitList(fetchTodayData())
+
+    }
+
+    private fun fetchTodayData(): MutableList<HomeTodayGoInfo>{
+        homeTodayGoDataSource = LocalHomeTodayGoDataSource()
+        return homeTodayGoDataSource.fetchTodayData().subList(0,3)
+    }
+
+
+
 
     private fun getImageList(): MutableList<HomeTabViewPagerImage> {
         return mutableListOf<HomeTabViewPagerImage>(HomeTabViewPagerImage(R.drawable.ic_image_1),

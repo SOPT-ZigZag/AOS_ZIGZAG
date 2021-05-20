@@ -11,4 +11,6 @@
     <!-- main color -->
     <color name="dark_gray">#212429</color>
     <color name="gray">#878E95</color>
+    <color name="brand_pink">#FD369D</color>
+    <color name="gray_02">#BBC0C4</color>
 </resources>

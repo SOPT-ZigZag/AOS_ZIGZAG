@@ -30,8 +30,67 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width=""
-        android:layout_height=""
+    <TextView
+        android:id="@+id/tv_ye_bin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ye_bin"
+        android:fontFamily="@font/noto_sans_kr_bold"
+        app:layout_constraintTop_toBottomOf="@+id/vp_home_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="13dp"
+        android:includeFontPadding="false"/>
+    <TextView
+        android:id="@+id/tv_re_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "@string/rec_item"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toEndOf="@+id/tv_ye_bin"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_ye_bin"/>
+    <ImageView
+        android:id="@+id/iv_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_reset"
+        android:layout_marginTop="13dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_re_item"
+        app:layout_constraintTop_toBottomOf="@id/vp_home_image"/>
+    <ImageView
+        android:id="@+id/iv_selector_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_check"
+        android:layout_marginStart="41dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_reset"
+        app:layout_constraintStart_toEndOf="@+id/iv_reset"/>
+    <ImageView
+        android:id="@+id/iv_today_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_todaydelivery"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_selector_check"
+        app:layout_constraintBottom_toBottomOf="@id/iv_selector_check"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_today_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="14dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ye_bin"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
