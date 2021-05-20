@@ -2,8 +2,9 @@ package org.sopt.ui.view.store.data.datasource
 
 import org.sopt.R
 import org.sopt.ui.view.store.data.model.BrandData
+import org.sopt.ui.view.store.data.model.StoryData
 
-class BrandDataSourceImpl: BrandDataSource {
+class StoreDataSourceImpl: StoreDataSource {
     override fun getBrandData(): List<BrandData> {
         return listOf<BrandData>(
             BrandData(
@@ -50,6 +51,36 @@ class BrandDataSourceImpl: BrandDataSource {
                 follower = "194.5만",
                 rankChange = 0,
                 img = R.drawable.img_moderntage_2
+            )
+        )
+    }
+
+    override fun getStoryData(): List<StoryData> {
+        return listOf<StoryData>(
+            StoryData(
+                img = R.drawable.img_moderntage_1,
+                brand = "모던티지",
+                view = "11.5만"
+            ),
+            StoryData(
+                img = R.drawable.img_moderntage_2,
+                brand = "모던티지",
+                view = "11.5만"
+            ),
+            StoryData(
+                img = R.drawable.img_moderntage_3,
+                brand = "모던티지",
+                view = "11.5만"
+            ),
+            StoryData(
+                img = R.drawable.img_moderntage_1,
+                brand = "모던티지",
+                view = "11.5만"
+            ),
+            StoryData(
+                img = R.drawable.img_moderntage_2,
+                brand = "모던티지",
+                view = "11.5만"
             )
         )
     }
