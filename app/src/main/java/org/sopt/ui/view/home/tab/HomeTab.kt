@@ -8,22 +8,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import org.sopt.R
 import org.sopt.databinding.FragmentHomeTabBinding
 import org.sopt.ui.adapter.SampleAdapter
-import org.sopt.ui.view.home.data.HomeTodayGoDataSource
-import org.sopt.ui.view.home.data.HomeViewPagerDataSource
-import org.sopt.ui.view.home.data.LocalHomeTabViewPagerDataSource
-import org.sopt.ui.view.home.data.LocalHomeTodayGoDataSource
-import org.sopt.ui.view.home.model.HomeTabViewPagerImage
-import org.sopt.ui.view.home.model.HomeTodayGoInfo
+import org.sopt.ui.adapter.SampleAdapter.HomeTodayGoAdapter.Companion.ALL_BRAND
+import org.sopt.ui.adapter.SampleAdapter.HomeTodayGoAdapter.Companion.TODAY_GO
+import org.sopt.ui.view.home.data.*
+import org.sopt.ui.view.home.model.*
 
 class HomeTab : Fragment() {
     private val homeImageViewPagerAdapter = SampleAdapter.HomeTabViewPagerAdapter()
     private val homeTodayGoAdapter = SampleAdapter.HomeTodayGoAdapter()
+    private val homeRecItemAdapter = SampleAdapter.HomeRecItemAdapter()
+    private val homeThisItemAdapter = SampleAdapter.HomeThisItemAdapter()
+    private val homeThisItemTwoAdapter = SampleAdapter.HomeThisItemTwoAdapter()
+    private lateinit var homeThisItemDataSource: HomeThisItemDataSource
+    private lateinit var homeRecItemDataSource : HomeRecItemDataSource
     private lateinit var homeTodayGoDataSource : HomeTodayGoDataSource
-    private lateinit var homeViewPagerDataSource: HomeViewPagerDataSource
+    private lateinit var homeThisItemTwoDataSource: HomeThisItemTwoDataSource
     private var _binding: FragmentHomeTabBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
     private var numViewPager = 4
@@ -43,7 +47,13 @@ class HomeTab : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initHomeImageViewPager()
         initHomeTodayGo()
+        initHomeRecItem()
+        initClickButton()
+        initHomeThisItem()
+        initHomeThisItemTwo()
+
     }
+
 
     private fun initHomeImageViewPager() {
         binding.vpHomeImage.adapter = homeImageViewPagerAdapter
@@ -65,15 +75,55 @@ class HomeTab : Fragment() {
     }
     private fun initHomeTodayGo(){
         binding.rvTodayDelivery.adapter = homeTodayGoAdapter
-        homeTodayGoAdapter.submitList(fetchTodayData())
-
+        homeTodayGoAdapter.data = fetchTodayData()
     }
+    private fun initHomeRecItem(){
+        binding.rvRecItem.adapter = homeRecItemAdapter
+        homeRecItemAdapter.submitList(fetchRecData())
+    }
+
+    private fun initHomeThisItem(){
+        binding.rvThisItem.adapter = homeThisItemAdapter
+        homeThisItemAdapter.submitList(fetchThisItemData())
+    }
+    private fun initHomeThisItemTwo(){
+        binding.rvThisItemTwo.adapter = homeThisItemTwoAdapter
+        binding.rvThisItemTwo.layoutManager = GridLayoutManager(this.context,2)
+        homeThisItemTwoAdapter.submitList(fetchThisItemTwoData())
+    }
+
+    private fun initClickButton(){
+        binding.ivSelectorCheck.setOnClickListener{
+            it.isSelected = !it.isSelected
+
+            when(it.isSelected){
+                true -> SampleAdapter.HomeTodayGoAdapter().setItemViewType(TODAY_GO)
+                false -> SampleAdapter.HomeTodayGoAdapter().setItemViewType(ALL_BRAND)
+            }
+        }
+    }
+
+
 
     private fun fetchTodayData(): MutableList<HomeTodayGoInfo>{
         homeTodayGoDataSource = LocalHomeTodayGoDataSource()
-        return homeTodayGoDataSource.fetchTodayData().subList(0,3)
+        return homeTodayGoDataSource.fetchTodayData()
     }
 
+    private fun fetchRecData() : MutableList<HomeRecItemInfo>{
+        homeRecItemDataSource = LocalHomeRecItemDataSource()
+        return homeRecItemDataSource.fetchRecData().subList(0,3)
+    }
+
+    private fun fetchThisItemData() : MutableList<HomeThisItemInfo>{
+        homeThisItemDataSource = LocalHomeThisItemDataSource()
+        return homeThisItemDataSource.fetchThisItemData().subList(0,3)
+    }
+
+    private fun fetchThisItemTwoData() : MutableList<HomeThisItemTwoInfo>{
+        homeThisItemTwoDataSource = LocalHomeThisItemTwoDataSource()
+        return homeThisItemTwoDataSource.fetchThisItemTwoData()
+    }
 
 
 

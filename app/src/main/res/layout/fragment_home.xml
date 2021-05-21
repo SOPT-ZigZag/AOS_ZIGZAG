@@ -29,25 +29,31 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="42dp"
                     android:src="@drawable/ic_zigzag"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_group_1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_group_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="37dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_group_1"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/iv_zigzag"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="39dp"
+                    android:layout_marginEnd="14dp"
                     android:src="@drawable/ic_top"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_group_1"
                     app:layout_constraintTop_toTopOf="parent" />
 

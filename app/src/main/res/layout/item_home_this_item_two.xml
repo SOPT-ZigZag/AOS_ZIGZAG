@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/cl_home_delivery"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
@@ -17,37 +16,40 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iv_today_delivery_img"
+            android:id="@+id/iv_this_item_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/today_delivery_img1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/this_item_two_1" />
 
         <ImageButton
-            android:id="@+id/iv_selector_heart_empty"
+            android:id="@+id/iv_selector_heart_empty_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
-            android:background="@drawable/selector_heart_empty"
-            app:layout_constraintBottom_toBottomOf="@id/iv_today_delivery_img"
-            app:layout_constraintEnd_toEndOf="@+id/iv_today_delivery_img" />
+            app:layout_constraintEnd_toEndOf="@+id/iv_this_item_two"
+            app:layout_constraintBottom_toBottomOf="@id/iv_this_item_two"
+            android:background="@drawable/selector_heart_empty" />
 
         <TextView
-            android:id="@+id/tv_intense"
+            android:id="@+id/tv_this_intense_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_this_item_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:textStyle="bold"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:text="@string/intense"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_today_delivery_img" />
+            android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/tv_today_name"
+            android:id="@+id/tv_this_today_name_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_this_intense_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -55,50 +57,25 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:singleLine="true"
-            android:textSize="10sp"
             android:text="@string/today_name"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_this_percent_two"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_intense" />
-
-        <TextView
-            android:id="@+id/tv_z_discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:text="@string/z_discount"
-            android:textSize="10sp"
-            android:textColor="@color/brand_pink"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_today_name" />
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:text="@string/price"
-            android:textColor="@color/gray_02"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_z_discount"
-            app:layout_constraintStart_toEndOf="@+id/tv_z_discount" />
-
-        <TextView
-            android:id="@+id/tv_percent"
+            app:layout_constraintTop_toBottomOf="@id/tv_this_today_name_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
             android:text="@string/percent"
             android:textColor="@color/brand_pink"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_price" />
+            android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/tv_price_x"
+            android:id="@+id/tv_this_price_x_two"
+            app:layout_constraintStart_toEndOf="@+id/tv_this_percent_two"
+            app:layout_constraintTop_toTopOf="@+id/tv_this_percent_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
@@ -106,27 +83,25 @@
             android:includeFontPadding="false"
             android:text="@string/price_x"
             android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_percent"
-            app:layout_constraintTop_toTopOf="@+id/tv_percent" />
+            android:textSize="10sp" />
 
         <ImageView
-            android:id="@+id/iv_free_shipping"
+            android:id="@+id/iv_this_free_shipping_two"
+            app:layout_constraintStart_toStartOf="@+id/tv_this_percent_two"
+            app:layout_constraintTop_toBottomOf="@+id/tv_this_percent_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_free_shipping"
-            app:layout_constraintStart_toStartOf="@+id/tv_percent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_percent" />
+            android:src="@drawable/ic_free_shipping" />
 
         <ImageView
-            android:id="@+id/iv_today_go"
+            android:id="@+id/iv_this_Two_today_go"
+            app:layout_constraintStart_toEndOf="@id/iv_this_free_shipping_two"
+            app:layout_constraintTop_toTopOf="@+id/iv_this_free_shipping_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:src="@drawable/ic_today_go"
-            app:layout_constraintStart_toEndOf="@id/iv_free_shipping"
-            app:layout_constraintTop_toTopOf="@+id/iv_free_shipping" />
+            android:src="@drawable/ic_today_go" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

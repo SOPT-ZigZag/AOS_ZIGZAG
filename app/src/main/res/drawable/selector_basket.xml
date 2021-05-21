@@ -3,11 +3,12 @@
     <item
         android:state_selected="false"
         android:state_checked="false"
-        android:drawable="@drawable/ic_check_off"/>
+        android:drawable="@drawable/ic_basket_off"/>
     <item
         android:state_selected="true"
         android:state_checked="true"
-        android:drawable="@drawable/ic_check_on"/>
+        android:drawable="@drawable/ic_basket_on"/>
     <item
-        android:drawable="@drawable/ic_check_on"/>
+        android:drawable="@drawable/ic_basket_on"/>
+
 </selector>

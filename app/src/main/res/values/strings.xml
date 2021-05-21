@@ -15,4 +15,7 @@
     <string name="price"><s>129,000</s></string>
     <string name="percent">72%</string>
     <string name="price_x">35,900</string>
+    <string name="rc_item_name">[모델 소장, 기획특가]베이브 탄탄 여리넥 하프</string>
+    <string name="rc_item_agree">더확인하러가기</string>
+    <string name="this_item">이 상품은 어때요?</string>
 </resources>
