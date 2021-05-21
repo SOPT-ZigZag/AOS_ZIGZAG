@@ -25,8 +25,8 @@ class HomeTab : Fragment() {
     private val homeThisItemAdapter = SampleAdapter.HomeThisItemAdapter()
     private val homeThisItemTwoAdapter = SampleAdapter.HomeThisItemTwoAdapter()
     private lateinit var homeThisItemDataSource: HomeThisItemDataSource
-    private lateinit var homeRecItemDataSource : HomeRecItemDataSource
-    private lateinit var homeTodayGoDataSource : HomeTodayGoDataSource
+    private lateinit var homeRecItemDataSource: HomeRecItemDataSource
+    private lateinit var homeTodayGoDataSource: HomeTodayGoDataSource
     private lateinit var homeThisItemTwoDataSource: HomeThisItemTwoDataSource
     private var _binding: FragmentHomeTabBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
@@ -51,6 +51,7 @@ class HomeTab : Fragment() {
         initClickButton()
         initHomeThisItem()
         initHomeThisItemTwo()
+        initResetButton()
 
     }
 
@@ -73,58 +74,75 @@ class HomeTab : Fragment() {
             })
         }
     }
-    private fun initHomeTodayGo(){
+
+    private fun initHomeTodayGo() {
         binding.rvTodayDelivery.adapter = homeTodayGoAdapter
-        homeTodayGoAdapter.data = fetchTodayData()
-    }
-    private fun initHomeRecItem(){
-        binding.rvRecItem.adapter = homeRecItemAdapter
-        homeRecItemAdapter.submitList(fetchRecData())
+        homeTodayGoAdapter.data = fetchTodayData().subList(0, 3)
     }
 
-    private fun initHomeThisItem(){
+    private fun initResetButton() {
+        binding.ivReset.setOnClickListener {
+            val list = fetchTodayData()
+            list.shuffle()
+            homeTodayGoAdapter.data = list.subList(0,3)
+        }
+    }
+
+    private fun initResetTwoButton(){
+        binding.ivReset2.setOnClickListener {
+            val reset = fetchRecData()
+            reset.shuffle()
+            homeRecItemAdapter.data = reset.subList(0,3)
+        }
+    }
+
+    private fun initHomeRecItem() {
+        binding.rvRecItem.adapter = homeRecItemAdapter
+        homeRecItemAdapter.data = fetchRecData().subList(0,3)
+    }
+
+    private fun initHomeThisItem() {
         binding.rvThisItem.adapter = homeThisItemAdapter
         homeThisItemAdapter.submitList(fetchThisItemData())
     }
-    private fun initHomeThisItemTwo(){
+
+    private fun initHomeThisItemTwo() {
         binding.rvThisItemTwo.adapter = homeThisItemTwoAdapter
-        binding.rvThisItemTwo.layoutManager = GridLayoutManager(this.context,2)
+        binding.rvThisItemTwo.layoutManager = GridLayoutManager(this.context, 2)
         homeThisItemTwoAdapter.submitList(fetchThisItemTwoData())
     }
 
-    private fun initClickButton(){
-        binding.ivSelectorCheck.setOnClickListener{
+    private fun initClickButton() {
+        binding.ivSelectorCheck.setOnClickListener {
             it.isSelected = !it.isSelected
 
-            when(it.isSelected){
-                true -> SampleAdapter.HomeTodayGoAdapter().setItemViewType(TODAY_GO)
-                false -> SampleAdapter.HomeTodayGoAdapter().setItemViewType(ALL_BRAND)
+            when (it.isSelected) {
+                true -> homeTodayGoAdapter.setItemViewType(TODAY_GO)
+                false -> homeTodayGoAdapter.setItemViewType(ALL_BRAND)
             }
         }
     }
 
 
-
-    private fun fetchTodayData(): MutableList<HomeTodayGoInfo>{
+    private fun fetchTodayData(): MutableList<HomeTodayGoInfo> {
         homeTodayGoDataSource = LocalHomeTodayGoDataSource()
         return homeTodayGoDataSource.fetchTodayData()
     }
 
-    private fun fetchRecData() : MutableList<HomeRecItemInfo>{
+    private fun fetchRecData(): MutableList<HomeRecItemInfo> {
         homeRecItemDataSource = LocalHomeRecItemDataSource()
-        return homeRecItemDataSource.fetchRecData().subList(0,3)
+        return homeRecItemDataSource.fetchRecData().subList(0, 3)
     }
 
-    private fun fetchThisItemData() : MutableList<HomeThisItemInfo>{
+    private fun fetchThisItemData(): MutableList<HomeThisItemInfo> {
         homeThisItemDataSource = LocalHomeThisItemDataSource()
-        return homeThisItemDataSource.fetchThisItemData().subList(0,3)
+        return homeThisItemDataSource.fetchThisItemData().subList(0, 3)
     }
 
-    private fun fetchThisItemTwoData() : MutableList<HomeThisItemTwoInfo>{
+    private fun fetchThisItemTwoData(): MutableList<HomeThisItemTwoInfo> {
         homeThisItemTwoDataSource = LocalHomeThisItemTwoDataSource()
         return homeThisItemTwoDataSource.fetchThisItemTwoData()
     }
-
 
 
     private fun getImageList(): MutableList<HomeTabViewPagerImage> {
@@ -150,7 +168,7 @@ class HomeTab : Fragment() {
                 binding.vpHomeImage.setCurrentItem(++currentPosition, true)
                 autoScrollStart(intervalTime)
             }
-            if (currentPosition == 4){
+            if (currentPosition == 4) {
                 currentPosition = -1
             }
 

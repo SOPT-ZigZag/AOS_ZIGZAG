@@ -118,175 +118,177 @@ class SampleAdapter {
                     }
 
 
-                        ivTodayDeliveryImg.setImageResource(homeTodayGoInfo.homeTodayImage)
-                        ivSelectorHeartEmpty.setImageResource(homeTodayGoInfo.homeTodayHeart)
-                        tvIntense.text = homeTodayGoInfo.homeTodayIntense
-                        tvTodayName.text = homeTodayGoInfo.homeTodayName
-                        tvZDiscount.text = homeTodayGoInfo.homeTodayDis
-                        tvPrice.text = homeTodayGoInfo.homeTodayPrice
-                        tvPercent.text = homeTodayGoInfo.homeTodayPercent
-                        tvPriceX.text = homeTodayGoInfo.homeTodayPrice_x
-                        ivFreeShipping.setImageResource(homeTodayGoInfo.homeTodayFreeShipping)
-                        if (!homeTodayGoInfo.GoQuestion) {
-                            ivTodayGo.visibility = View.INVISIBLE
+                    ivTodayDeliveryImg.setImageResource(homeTodayGoInfo.homeTodayImage)
+                    ivSelectorHeartEmpty.setImageResource(homeTodayGoInfo.homeTodayHeart)
+                    tvIntense.text = homeTodayGoInfo.homeTodayIntense
+                    tvTodayName.text = homeTodayGoInfo.homeTodayName
+                    tvZDiscount.text = homeTodayGoInfo.homeTodayDis
+                    tvPrice.text = homeTodayGoInfo.homeTodayPrice
+                    tvPercent.text = homeTodayGoInfo.homeTodayPercent
+                    tvPriceX.text = homeTodayGoInfo.homeTodayPrice_x
+                    ivFreeShipping.setImageResource(homeTodayGoInfo.homeTodayFreeShipping)
+                    if (!homeTodayGoInfo.GoQuestion) {
+                        ivTodayGo.visibility = View.INVISIBLE
+                    } else {
+                        ivTodayGo.setImageResource(homeTodayGoInfo.homeTodayGo)
+                    }
+                    ivSelectorHeartEmpty.setOnClickListener { it.isSelected = !it.isSelected }
+                }
+            }
+        }
+
+        companion object {
+            const val ALL_BRAND = 0
+            const val TODAY_GO = 1
+        }
+    }
+
+    class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemViewHolder>() {
+        private val _data = mutableListOf<HomeRecItemInfo>()
+        var data: List<HomeRecItemInfo> = _data
+            set(value) {
+                _data.clear()
+                _data.addAll(value)
+                notifyDataSetChanged()
+            }
+
+        override fun getItemCount(): Int {
+            return _data.size
+        }
+
+        class HomeRecItemViewHolder(private val binding: ItemHomeRecItemBinding) :
+                RecyclerView.ViewHolder(binding.root) {
+            fun onRecBind(homeRecItemInfo: HomeRecItemInfo) {
+                binding.apply {
+                    ivRcImage.setImageResource(homeRecItemInfo.recItemImage)
+                    ivPinkHeart.setImageResource(homeRecItemInfo.recItemPinkHeart)
+                    tvIntense2.text = homeRecItemInfo.recItemIntense
+                    tvRcItemName.text = homeRecItemInfo.recItemName
+                    tvRcPrice.text = homeRecItemInfo.recItemPrice
+                    tvRcPercent.text = homeRecItemInfo.recItemPercent
+                    tvRcItemDiscount.text = homeRecItemInfo.recItemDis
+                    tvRcPrice2.text = homeRecItemInfo.recItemPrice_2
+                    ivFreeShipping2.setImageResource(homeRecItemInfo.recItemFreeShipping)
+                    ivBasket.setImageResource(homeRecItemInfo.recItemBasket)
+                    if (!homeRecItemInfo.recTodayGo_2) {
+                        ivThisTodayGo.visibility = View.INVISIBLE
+                    } else {
+                        ivThisTodayGo.setImageResource(homeRecItemInfo.recItemGo)
+                    }
+
+                    ivPinkHeart.setOnClickListener { it.isSelected = !it.isSelected }
+                    ivBasket.setOnClickListener { it.isSelected = !it.isSelected }
+                }
+            }
+
+
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecItemViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ItemHomeRecItemBinding.inflate(layoutInflater, parent, false)
+            return HomeRecItemViewHolder(binding)
+        }
+
+        override fun onBindViewHolder(holder: HomeRecItemViewHolder, position: Int) {
+            holder.onRecBind(data[position])
+        }
+    }
+
+    class HomeThisItemAdapter : ListAdapter<HomeThisItemInfo, HomeThisItemAdapter.HomeThisItemViewHolder>(HomeThisItemAdapter.HomeThisItemViewHolder.HomeThisItemDiffUtil) {
+
+
+        class HomeThisItemViewHolder(private val binding: ItemHomeThisItemBinding) :
+                RecyclerView.ViewHolder(binding.root) {
+            fun onThisBind(homeThisItem: HomeThisItemInfo) {
+                binding.apply {
+                    ivThisItem.setImageResource(homeThisItem.homeThisItemImage)
+                    ivSelectorHeartEmpty2.setImageResource(homeThisItem.homeThisItemHeart)
+                    tvThisIntense.text = homeThisItem.homeThisItemIntense
+                    tvThisTodayName.text = homeThisItem.homeThisItemName
+                    tvThisZDiscount.text = homeThisItem.homeThisItemDis
+                    tvThisPercent.text = homeThisItem.homeThisItemPercent
+                    tvThisPrice.text = homeThisItem.homeThisItemPrice
+                    tvThisPriceX.text = homeThisItem.homeThisItemPrice_x
+                    ivThisFreeShipping.setImageResource(homeThisItem.homeThisItemFreeShipping)
+                    if (!homeThisItem.GoThisItemQuestion) {
+                        ivThisTodayGo.visibility = View.INVISIBLE
+                    } else {
+                        ivThisTodayGo.setImageResource(homeThisItem.homeThisItemGo)
+                    }
+                }
+            }
+
+            object HomeThisItemDiffUtil : DiffUtil.ItemCallback<HomeThisItemInfo>() {
+                override fun areItemsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
+
+
+                override fun areContentsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
+                    return oldItem == newItem
+                }
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ItemHomeThisItemBinding.inflate(layoutInflater, parent, false)
+            return HomeThisItemViewHolder(binding)
+        }
+
+        override fun onBindViewHolder(holder: HomeThisItemViewHolder, position: Int) {
+            holder.onThisBind(getItem(position))
+        }
+    }
+
+    class HomeThisItemTwoAdapter : ListAdapter<HomeThisItemTwoInfo, HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder>(HomeThisItemTwoViewHolder.HomeThisItemTwoDiffUtil) {
+
+
+        class HomeThisItemTwoViewHolder(private val binding: ItemHomeThisItemTwoBinding) :
+                RecyclerView.ViewHolder(binding.root) {
+            fun onThisBind(homeThisItemTwo: HomeThisItemTwoInfo) {
+                binding.apply {
+                    with(homeThisItemTwo) {
+                        ivThisItemTwo.setImageResource(homeThisItemTwoImage)
+                        ivSelectorHeartEmpty3.setImageResource(homeThisItemTwoHeart)
+                        tvThisIntenseTwo.text = homeThisItemTwoIntense
+                        tvThisTodayNameTwo.text = homeThisItemTwoName
+                        tvThisPercentTwo.text = homeThisItemTwoPercent
+                        tvThisPriceXTwo.text = homeThisItemTwoPrice_x
+                        ivThisFreeShippingTwo.setImageResource(homeThisItemTwoFreeShipping)
+                        if (!GoThisItemTwoQuestion) {
+                            ivThisTwoTodayGo.visibility = View.INVISIBLE
                         } else {
-                            ivTodayGo.setImageResource(homeTodayGoInfo.homeTodayGo)
+                            ivThisTwoTodayGo.setImageResource(homeThisItemTwoGo)
                         }
-                        ivSelectorHeartEmpty.setOnClickListener { it.isSelected = !it.isSelected }
+                        ivSelectorHeartEmpty3.setOnClickListener { it.isSelected = !it.isSelected }
                     }
                 }
             }
 
-            companion object {
-                const val ALL_BRAND = 0
-                const val TODAY_GO = 1
+            object HomeThisItemTwoDiffUtil : DiffUtil.ItemCallback<HomeThisItemTwoInfo>() {
+                override fun areItemsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
+
+
+                override fun areContentsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
+                    return oldItem == newItem
+                }
             }
         }
 
-        class HomeRecItemAdapter : ListAdapter<HomeRecItemInfo, HomeRecItemAdapter.HomeRecItemViewHolder>(HomeRecItemViewHolder.HomeRecItemDiffUtil) {
-
-            class HomeRecItemViewHolder(private val binding: ItemHomeRecItemBinding) :
-                    RecyclerView.ViewHolder(binding.root) {
-                fun onRecBind(homeRecItemInfo: HomeRecItemInfo) {
-                    binding.apply {
-                        ivRcImage.setImageResource(homeRecItemInfo.recItemImage)
-                        ivPinkHeart.setImageResource(homeRecItemInfo.recItemPinkHeart)
-                        tvIntense2.text = homeRecItemInfo.recItemIntense
-                        tvRcItemName.text = homeRecItemInfo.recItemName
-                        tvRcPrice.text = homeRecItemInfo.recItemPrice
-                        tvRcPercent.text = homeRecItemInfo.recItemPercent
-                        tvRcItemDiscount.text = homeRecItemInfo.recItemDis
-                        tvRcPrice2.text = homeRecItemInfo.recItemPrice_2
-                        ivFreeShipping2.setImageResource(homeRecItemInfo.recItemFreeShipping)
-                        ivBasket.setImageResource(homeRecItemInfo.recItemBasket)
-                        if (!homeRecItemInfo.recTodayGo_2) {
-                            ivThisTodayGo.visibility = View.INVISIBLE
-                        } else {
-                            ivThisTodayGo.setImageResource(homeRecItemInfo.recItemGo)
-                        }
-
-                        ivPinkHeart.setOnClickListener { it.isSelected = !it.isSelected }
-                        ivBasket.setOnClickListener { it.isSelected = !it.isSelected }
-                    }
-                }
-
-                object HomeRecItemDiffUtil : DiffUtil.ItemCallback<HomeRecItemInfo>() {
-                    override fun areItemsTheSame(oldItem: HomeRecItemInfo, newItem: HomeRecItemInfo): Boolean {
-                        return oldItem.hashCode() == newItem.hashCode()
-                    }
-
-
-                    override fun areContentsTheSame(oldItem: HomeRecItemInfo, newItem: HomeRecItemInfo): Boolean {
-                        return oldItem == newItem
-                    }
-                }
-            }
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecItemViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemHomeRecItemBinding.inflate(layoutInflater, parent, false)
-                return HomeRecItemViewHolder(binding)
-            }
-
-            override fun onBindViewHolder(holder: HomeRecItemViewHolder, position: Int) {
-                holder.onRecBind(getItem(position))
-            }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ItemHomeThisItemTwoBinding.inflate(layoutInflater, parent, false)
+            return HomeThisItemTwoViewHolder(binding)
         }
 
-        class HomeThisItemAdapter : ListAdapter<HomeThisItemInfo, HomeThisItemAdapter.HomeThisItemViewHolder>(HomeThisItemAdapter.HomeThisItemViewHolder.HomeThisItemDiffUtil) {
-
-
-            class HomeThisItemViewHolder(private val binding: ItemHomeThisItemBinding) :
-                    RecyclerView.ViewHolder(binding.root) {
-                fun onThisBind(homeThisItem: HomeThisItemInfo) {
-                    binding.apply {
-                        ivThisItem.setImageResource(homeThisItem.homeThisItemImage)
-                        ivSelectorHeartEmpty2.setImageResource(homeThisItem.homeThisItemHeart)
-                        tvThisIntense.text = homeThisItem.homeThisItemIntense
-                        tvThisTodayName.text = homeThisItem.homeThisItemName
-                        tvThisZDiscount.text = homeThisItem.homeThisItemDis
-                        tvThisPercent.text = homeThisItem.homeThisItemPercent
-                        tvThisPrice.text = homeThisItem.homeThisItemPrice
-                        tvThisPriceX.text = homeThisItem.homeThisItemPrice_x
-                        ivThisFreeShipping.setImageResource(homeThisItem.homeThisItemFreeShipping)
-                        if (!homeThisItem.GoThisItemQuestion) {
-                            ivThisTodayGo.visibility = View.INVISIBLE
-                        } else {
-                            ivThisTodayGo.setImageResource(homeThisItem.homeThisItemGo)
-                        }
-                    }
-                }
-
-                object HomeThisItemDiffUtil : DiffUtil.ItemCallback<HomeThisItemInfo>() {
-                    override fun areItemsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
-                        return oldItem.hashCode() == newItem.hashCode()
-                    }
-
-
-                    override fun areContentsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
-                        return oldItem == newItem
-                    }
-                }
-            }
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemHomeThisItemBinding.inflate(layoutInflater, parent, false)
-                return HomeThisItemViewHolder(binding)
-            }
-
-            override fun onBindViewHolder(holder: HomeThisItemViewHolder, position: Int) {
-                holder.onThisBind(getItem(position))
-            }
+        override fun onBindViewHolder(holder: HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder, position: Int) {
+            holder.onThisBind(getItem(position))
         }
-
-        class HomeThisItemTwoAdapter : ListAdapter<HomeThisItemTwoInfo, HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder>(HomeThisItemTwoViewHolder.HomeThisItemTwoDiffUtil) {
-
-
-            class HomeThisItemTwoViewHolder(private val binding: ItemHomeThisItemTwoBinding) :
-                    RecyclerView.ViewHolder(binding.root) {
-                fun onThisBind(homeThisItemTwo: HomeThisItemTwoInfo) {
-                    binding.apply {
-                        with(homeThisItemTwo) {
-                            ivThisItemTwo.setImageResource(homeThisItemTwoImage)
-                            ivSelectorHeartEmpty3.setImageResource(homeThisItemTwoHeart)
-                            tvThisIntenseTwo.text = homeThisItemTwoIntense
-                            tvThisTodayNameTwo.text = homeThisItemTwoName
-                            tvThisPercentTwo.text = homeThisItemTwoPercent
-                            tvThisPriceXTwo.text = homeThisItemTwoPrice_x
-                            ivThisFreeShippingTwo.setImageResource(homeThisItemTwoFreeShipping)
-                            if (!GoThisItemTwoQuestion) {
-                                ivThisTwoTodayGo.visibility = View.INVISIBLE
-                            } else {
-                                ivThisTwoTodayGo.setImageResource(homeThisItemTwoGo)
-                            }
-                            ivSelectorHeartEmpty3.setOnClickListener { it.isSelected = !it.isSelected }
-                        }
-                    }
-                }
-
-                object HomeThisItemTwoDiffUtil : DiffUtil.ItemCallback<HomeThisItemTwoInfo>() {
-                    override fun areItemsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
-                        return oldItem.hashCode() == newItem.hashCode()
-                    }
-
-
-                    override fun areContentsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
-                        return oldItem == newItem
-                    }
-                }
-            }
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemHomeThisItemTwoBinding.inflate(layoutInflater, parent, false)
-                return HomeThisItemTwoViewHolder(binding)
-            }
-
-            override fun onBindViewHolder(holder: HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder, position: Int) {
-                holder.onThisBind(getItem(position))
-            }
-        }
+    }
 }
 
 
