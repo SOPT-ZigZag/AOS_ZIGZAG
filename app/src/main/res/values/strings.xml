@@ -8,6 +8,8 @@
     <string name="my_page">마이페이지</string>
     <string name="ye_bin">윤예빈</string>
     <string name="rec_item">님을 위한 추천아이템</string>
+
+    <!-- store -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intense">인텐스</string>
     <string name="today_name">[셈디, 미희 착용]엘칸</string>
@@ -18,4 +20,23 @@
     <string name="rc_item_name">[모델 소장, 기획특가]베이브 탄탄 여리넥 하프</string>
     <string name="rc_item_agree">더확인하러가기</string>
     <string name="this_item">이 상품은 어때요?</string>
+    <string name="bookmark_store">즐겨찾기한 스토어 스토리</string>
+    <string name="shopping_mall">쇼핑몰</string>
+    <string name="brand">브랜드</string>
+    <string name="cloth">의류</string>
+    <string name="style">스타일</string>
+    <string name="age">연령대</string>
+    <string name="ranking">랭킹</string>
+    <string name="bookmark">즐겨찾기</string>
+    <string name="more_ranking">랭킹 더보기️ 😎</string>
+    <string name="sixsixgirls">육육걸즈</string>
+
+    <!-- tools -->
+    <string name="view">11.5만</string>
+    <string name="minus">-</string>
+    <string name="follower_num">194.5만</string>
+    <string name="moderntage">모던티지</string>
+    <string name="one">1</string>
+    <string name="simple_lovely">심플베이직.러블리</string>
+    <string name="max_1000">최대 1,000원 쿠폰</string>
 </resources>

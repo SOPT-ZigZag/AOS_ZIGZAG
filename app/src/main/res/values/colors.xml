@@ -11,6 +11,16 @@
     <!-- main color -->
     <color name="dark_gray">#212429</color>
     <color name="gray">#878E95</color>
+    <color name="white_gray">#DDE0E4</color>
+    <color name="light_dark_gray">#C4C4C4</color>
+    <color name="mouse_gray">#B0B7BE</color>
+    <color name="main_black">#212428</color>
     <color name="brand_pink">#FD369D</color>
+    <color name="light_gray">#F5F6F8</color>
+    <color name="cacao_dark">#4A4F56</color>
+    <color name="pale_gray">#CFD4DA</color>
+    <color name="ice_gray">#CFD4D9</color>
+    <color name="cold_gray">#AEB5BC</color>
+    <color name="purple_blue">#8F9DF8</color>
     <color name="gray_02">#BBC0C4</color>
 </resources>
