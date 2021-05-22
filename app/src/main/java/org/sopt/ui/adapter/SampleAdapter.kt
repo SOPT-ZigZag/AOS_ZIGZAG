@@ -195,7 +195,15 @@ class SampleAdapter {
         }
     }
 
-    class HomeThisItemAdapter : ListAdapter<HomeThisItemInfo, HomeThisItemAdapter.HomeThisItemViewHolder>(HomeThisItemAdapter.HomeThisItemViewHolder.HomeThisItemDiffUtil) {
+    class HomeThisItemAdapter : RecyclerView.Adapter<HomeThisItemAdapter.HomeThisItemViewHolder>() {
+
+        private val _data = mutableListOf<HomeThisItemInfo>()
+        var data: List<HomeThisItemInfo> = _data
+            set(value) {
+                _data.clear()
+                _data.addAll(value)
+                notifyDataSetChanged()
+            }
 
 
         class HomeThisItemViewHolder(private val binding: ItemHomeThisItemBinding) :
@@ -216,19 +224,17 @@ class SampleAdapter {
                     } else {
                         ivThisTodayGo.setImageResource(homeThisItem.homeThisItemGo)
                     }
+                    ivSelectorHeartEmpty2.setOnClickListener {
+                        it.isSelected = !it.isSelected
+                    }
                 }
             }
 
-            object HomeThisItemDiffUtil : DiffUtil.ItemCallback<HomeThisItemInfo>() {
-                override fun areItemsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
-                    return oldItem.hashCode() == newItem.hashCode()
-                }
 
+        }
 
-                override fun areContentsTheSame(oldItem: HomeThisItemInfo, newItem: HomeThisItemInfo): Boolean {
-                    return oldItem == newItem
-                }
-            }
+        override fun getItemCount(): Int {
+            return _data.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemViewHolder {
@@ -238,7 +244,7 @@ class SampleAdapter {
         }
 
         override fun onBindViewHolder(holder: HomeThisItemViewHolder, position: Int) {
-            holder.onThisBind(getItem(position))
+            holder.onThisBind(_data[position])
         }
     }
 

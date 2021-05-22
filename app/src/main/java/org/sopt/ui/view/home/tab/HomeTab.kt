@@ -19,6 +19,7 @@ import org.sopt.ui.view.home.data.*
 import org.sopt.ui.view.home.model.*
 
 class HomeTab : Fragment() {
+    private val recDataList = mutableListOf<HomeRecItemInfo>()
     private val homeImageViewPagerAdapter = SampleAdapter.HomeTabViewPagerAdapter()
     private val homeTodayGoAdapter = SampleAdapter.HomeTodayGoAdapter()
     private val homeRecItemAdapter = SampleAdapter.HomeRecItemAdapter()
@@ -52,7 +53,8 @@ class HomeTab : Fragment() {
         initHomeThisItem()
         initHomeThisItemTwo()
         initResetButton()
-
+        initResetTwoButton()
+        initResetThreeButton()
     }
 
 
@@ -96,14 +98,23 @@ class HomeTab : Fragment() {
         }
     }
 
+    private fun initResetThreeButton(){
+        binding.ivReset3.setOnClickListener {
+            val resets = fetchThisItemData()
+            resets.shuffle()
+            homeThisItemAdapter.data = resets
+        }
+    }
+
     private fun initHomeRecItem() {
         binding.rvRecItem.adapter = homeRecItemAdapter
-        homeRecItemAdapter.data = fetchRecData().subList(0,3)
+        recDataList.addAll(fetchRecData())
+        homeRecItemAdapter.data = recDataList
     }
 
     private fun initHomeThisItem() {
         binding.rvThisItem.adapter = homeThisItemAdapter
-        homeThisItemAdapter.submitList(fetchThisItemData())
+        homeThisItemAdapter.data =fetchThisItemData()
     }
 
     private fun initHomeThisItemTwo() {
@@ -120,6 +131,11 @@ class HomeTab : Fragment() {
                 true -> homeTodayGoAdapter.setItemViewType(TODAY_GO)
                 false -> homeTodayGoAdapter.setItemViewType(ALL_BRAND)
             }
+        }
+
+        binding.tvAgree.setOnClickListener {
+            recDataList.addAll(fetchRecData())
+            homeRecItemAdapter.data = recDataList
         }
     }
 

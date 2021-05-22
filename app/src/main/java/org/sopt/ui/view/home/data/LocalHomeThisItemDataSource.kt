@@ -21,7 +21,7 @@ class LocalHomeThisItemDataSource : HomeThisItemDataSource {
                         true
                 ),
                 HomeThisItemInfo(
-                        R.drawable.today_delivery_img1,
+                        R.drawable.today_delivery_img2,
                         R.drawable.selector_heart_empty,
                         "인텐스",
                         "[셈디, 미희 착용]엘칸",
@@ -47,7 +47,7 @@ class LocalHomeThisItemDataSource : HomeThisItemDataSource {
                         true
                 ),
                 HomeThisItemInfo(
-                        R.drawable.today_delivery_img1,
+                        R.drawable.today_delivery_img2,
                         R.drawable.selector_heart_empty,
                         "인텐스",
                         "[셈디, 미희 착용]엘칸",
