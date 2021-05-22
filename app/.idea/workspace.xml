@@ -42,9 +42,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a919c2d1-7fb2-4292-be08-49600ebe5a89" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sopt/ui/adapter/SampleAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sopt/ui/adapter/SampleAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sopt/ui/view/home/tab/HomeTab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sopt/ui/view/home/tab/HomeTab.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_home_today_delivery.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_home_today_delivery.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,14 +199,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1621607601528">
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1621637678598">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1621607601528" />
-    <state x="558" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1621612059858">
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1621637678598" />
+    <state x="558" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1621637819077">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="558" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1621612059858" />
+    <state x="558" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1621637819077" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1621533733593">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
