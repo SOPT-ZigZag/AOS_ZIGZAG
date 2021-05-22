@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_this_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/this_item_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/iv_selector_heart_empty_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/selector_heart_empty"
+            app:layout_constraintBottom_toBottomOf="@id/iv_this_item"
+            app:layout_constraintEnd_toEndOf="@+id/iv_this_item" />
+
+        <TextView
+            android:id="@+id/tv_this_intense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/intense"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_this_item" />
+
+        <TextView
+            android:id="@+id/tv_this_today_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="@string/today_name"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_this_intense" />
+
+        <TextView
+            android:id="@+id/tv_this_z_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/z_discount"
+            android:textColor="@color/brand_pink"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_this_today_name" />
+
+        <TextView
+            android:id="@+id/tv_this_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/price"
+            android:textColor="@color/gray_02"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_this_z_discount"
+            app:layout_constraintStart_toEndOf="@+id/tv_this_z_discount" />
+
+        <TextView
+            android:id="@+id/tv_this_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/percent"
+            android:textColor="@color/brand_pink"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_this_price" />
+
+        <TextView
+            android:id="@+id/tv_this_price_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/price_x"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_this_percent"
+            app:layout_constraintTop_toTopOf="@+id/tv_this_percent" />
+
+        <ImageView
+            android:id="@+id/iv_this_free_shipping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_free_shipping"
+            app:layout_constraintStart_toStartOf="@+id/tv_this_percent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_this_percent" />
+
+        <ImageView
+            android:id="@+id/iv_this_today_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/ic_today_go"
+            app:layout_constraintStart_toEndOf="@id/iv_this_free_shipping"
+            app:layout_constraintTop_toTopOf="@+id/iv_this_free_shipping" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
