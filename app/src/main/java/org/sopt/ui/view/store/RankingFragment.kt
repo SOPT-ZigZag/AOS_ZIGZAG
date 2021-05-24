@@ -40,17 +40,11 @@ class RankingFragment : Fragment() {
 
     private fun initClickEvent() {
         binding.apply {
-            chipCloth.setOnClickListener {
-                it.isSelected = !it.isSelected
-            }
+            chipCloth.setOnClickListener { it.isSelected = !it.isSelected }
 
-            chipStyle.setOnClickListener {
-                it.isSelected = !it.isSelected
-            }
+            chipStyle.setOnClickListener { it.isSelected = !it.isSelected }
 
-            chipAge.setOnClickListener {
-                it.isSelected = !it.isSelected
-            }
+            chipAge.setOnClickListener { it.isSelected = !it.isSelected }
 
             ibCheck.setOnClickListener {
                 it.isSelected = !it.isSelected

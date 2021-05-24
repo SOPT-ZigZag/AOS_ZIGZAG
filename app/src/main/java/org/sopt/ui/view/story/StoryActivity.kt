@@ -1,13 +1,14 @@
 package org.sopt.ui.view.story
 
 import android.animation.ObjectAnimator
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import org.sopt.R
 import org.sopt.databinding.ActivityStoryBinding
-import org.sopt.ui.view.store.StoreFragment
+import org.sopt.ui.view.store.StoreFragment.Companion.BRAND_NAME
+import org.sopt.ui.view.store.StoreFragment.Companion.IMG
 
 class StoryActivity : AppCompatActivity() {
     lateinit var binding : ActivityStoryBinding
@@ -18,27 +19,43 @@ class StoryActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.progressBar.max = 1000
+        initProgressBar()
+        setHandler()
+        setStory()
+        initClickEvent()
+    }
 
-        val currentProgress = 1000
+    private fun initProgressBar() {
+        binding.apply {
+            progressBar.max = PROGRESS_SIZE
 
-        ObjectAnimator.ofInt(binding.progressBar,"progress",currentProgress)
-            .setDuration(15000)
-            .start()
+            ObjectAnimator.ofInt(progressBar, "progress", PROGRESS_SIZE)
+                .setDuration(STORY_TIME)
+                .start()
+        }
+    }
 
-
-
+    private fun setHandler() {
         Handler(Looper.getMainLooper()).postDelayed({
             finish()
-        }, 15000)
+        }, STORY_TIME)
+    }
 
-        val picIntent: Intent = getIntent()
-        binding.Ellipsepic.setImageResource(picIntent.getIntExtra("img",1))
+    private fun setStory() {
+        val storyImage = intent.getIntExtra(IMG, R.drawable.img_moderntage_1)
+        val brandName = intent.getStringExtra(BRAND_NAME)
 
-
-
-        binding.closeStroyBtn.setOnClickListener {
-            finish()
+        binding.apply {
+            ivStory.setImageResource(storyImage)
+            ivCircleStory.setImageResource(storyImage)
+            tvStore.text = brandName
         }
+    }
+
+    private fun initClickEvent() { binding.btnCloseStroy.setOnClickListener { finish() } }
+
+    companion object {
+        const val STORY_TIME = 15000L
+        const val PROGRESS_SIZE = 1000
     }
 }

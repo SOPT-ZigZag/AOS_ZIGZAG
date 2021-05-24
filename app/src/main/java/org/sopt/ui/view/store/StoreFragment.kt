@@ -52,8 +52,12 @@ class StoreFragment : Fragment() {
             rvStory.adapter = storyListAdapter
             storyListAdapter.data = storeDataSource.getStoryData()
 
-            storyListAdapter.setStoryButtonClickListener {
-                startActivity(Intent(requireActivity(), StoryActivity::class.java).putExtra(IMG, it))
+            storyListAdapter.setStoryButtonClickListener { img, brand ->
+                startActivity(
+                    Intent(requireActivity(), StoryActivity::class.java)
+                    .putExtra(IMG, img)
+                    .putExtra(BRAND_NAME, brand)
+                )
             }
         }
     }
@@ -65,5 +69,6 @@ class StoreFragment : Fragment() {
 
     companion object {
         const val IMG = "img"
+        const val BRAND_NAME = "brand_name"
     }
 }
