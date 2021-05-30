@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import org.sopt.R
 import org.sopt.databinding.FragmentStoreBinding
-import org.sopt.ui.adapter.StoreViewPagerAdapter
+import org.sopt.ui.adapter.ZigZagViewPagerAdapter
 import org.sopt.ui.adapter.StoryListAdapter
 import org.sopt.ui.view.store.data.datasource.StoreDataSource
 import org.sopt.ui.view.store.data.datasource.StoreDataSourceImpl
@@ -19,7 +19,7 @@ import org.sopt.ui.view.story.StoryActivity
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private lateinit var storeViewPagerAdapter: StoreViewPagerAdapter
+    private lateinit var storeViewPagerAdapter: ZigZagViewPagerAdapter
     private val storyListAdapter = StoryListAdapter()
     private lateinit var storeDataSource: StoreDataSource
 
@@ -37,7 +37,7 @@ class StoreFragment : Fragment() {
 
         binding.apply {
             storeDataSource = StoreDataSourceImpl()
-            storeViewPagerAdapter = StoreViewPagerAdapter(this@StoreFragment)
+            storeViewPagerAdapter = ZigZagViewPagerAdapter(requireActivity())
 
             with(storeViewPagerAdapter) {
                 fragmentList = listOf(RankingFragment(), BookmarkFragment())
@@ -52,8 +52,12 @@ class StoreFragment : Fragment() {
             rvStory.adapter = storyListAdapter
             storyListAdapter.data = storeDataSource.getStoryData()
 
-            storyListAdapter.setStoryButtonClickListener {
-                startActivity(Intent(requireActivity(), StoryActivity::class.java).putExtra(IMG, it))
+            storyListAdapter.setStoryButtonClickListener { img, brand ->
+                startActivity(
+                    Intent(requireActivity(), StoryActivity::class.java)
+                    .putExtra(IMG, img)
+                    .putExtra(BRAND_NAME, brand)
+                )
             }
         }
     }
@@ -65,5 +69,6 @@ class StoreFragment : Fragment() {
 
     companion object {
         const val IMG = "img"
+        const val BRAND_NAME = "brand_name"
     }
 }

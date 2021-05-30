@@ -1,10 +1,10 @@
 package org.sopt.ui.adapter
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import org.sopt.ui.view.store.StoreFragment
 
-class StoreViewPagerAdapter(fragment: StoreFragment) : FragmentStateAdapter(fragment.requireActivity()) {
+class ZigZagViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     var fragmentList = listOf<Fragment>()
 
     override fun getItemCount(): Int {

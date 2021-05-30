@@ -6,115 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.story.StoryActivity">
 
-
     <ImageView
-        android:id="@+id/image_background"
+        android:id="@+id/iv_story"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:background="@drawable/rec"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/img_moderntage_1" />
 
     <ProgressBar
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="350dp"
         android:layout_height="2dp"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="13dp"
         android:layout_marginTop="44dp"
+        android:layout_marginEnd="13dp"
         android:layout_weight="1"
-
-        android:paddingLeft="12dp" />
-
-
-    <ImageView
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/Ellipsepic"
-        android:layout_marginTop="57dp"
-        android:layout_marginStart="30dp"
-        android:layout_width="39dp"
-        android:layout_height="39dp"
-        app:srcCompat="@drawable/ellipse18"
-        />
-    <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/store_name"
-        android:layout_marginTop="55dp"
-        android:layout_marginStart="90dp"
-        android:fontFamily="@font/noto_sans_kr_medium"
-        android:textColor="@color/white"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:text="모던티지 "
-        android:textSize="13sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_circle_story"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        tools:src="@drawable/img_moderntage_1" />
 
     <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="55dp"
-        android:textColor="@color/white"
-        android:layout_marginStart="150dp"
-        android:fontFamily="@font/noto_sans_kr_medium"
-        android:layout_width="48dp"
+        android:id="@+id/tv_store"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="12 시간"
+        android:layout_marginStart="14dp"
+        android:fontFamily="@font/noto_sans_kr_medium"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
         android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_circle_story"
+        app:layout_constraintStart_toEndOf="@+id/iv_circle_story"
+        app:layout_constraintTop_toTopOf="@+id/iv_circle_story"
+        tools:text="@string/moderntage" />
 
-        />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/noto_sans_kr_medium"
+        android:includeFontPadding="false"
+        android:text="@string/hours_12"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_store"
+        app:layout_constraintStart_toEndOf="@+id/tv_store" />
 
     <ImageView
         android:id="@+id/dot"
-        android:layout_width="15dp"
-        android:layout_height="21dp"
-        android:layout_marginLeft="330dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/ic_frame_33"
-        app:layout_constraintEnd_toStartOf="@id/close_stroy_btn"
-
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_close_stroy"
+        app:layout_constraintEnd_toStartOf="@+id/btn_close_stroy" />
 
 
     <ImageButton
-        android:id="@+id/close_stroy_btn"
-        android:layout_width="21dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="64dp"
-
-        android:layout_marginEnd="28dp"
-        android:background="@drawable/ic_frame_32"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/btn_close_stroy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:src="@drawable/ic_btn_story_product_more"/>
+        android:layout_marginTop="18dp"
+        android:background="@drawable/ic_frame_32"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
-
-
-
-
-
-
-
+    <TextView
+        android:id="@+id/btn_see_cloth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/rectangle_border_white_17"
+        android:fontFamily="@font/noto_sans_kr_medium"
+        android:includeFontPadding="false"
+        android:padding="12dp"
+        android:text="@string/see_cloth"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

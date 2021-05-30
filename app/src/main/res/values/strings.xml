@@ -30,6 +30,11 @@
     <string name="bookmark">즐겨찾기</string>
     <string name="more_ranking">랭킹 더보기️ 😎</string>
     <string name="sixsixgirls">육육걸즈</string>
+    <string name="hours_12">12시간</string>
+    <string name="plz_search_keyword">검색어를 입력해주세요</string>
+
+    <!-- story -->
+    <string name="see_cloth">착용 상품 보러가기 ></string>
 
     <!-- tools -->
     <string name="view">11.5만</string>

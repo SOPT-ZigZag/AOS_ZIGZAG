@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.sopt.databinding.FragmentHomeBinding
-import org.sopt.ui.adapter.SampleAdapter
+import org.sopt.ui.adapter.ZigZagViewPagerAdapter
+import org.sopt.ui.view.home.tab.BestTab
+import org.sopt.ui.view.home.tab.BrandTab
+import org.sopt.ui.view.home.tab.HomeTab
+import org.sopt.ui.view.home.tab.NewTab
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -28,16 +31,21 @@ class HomeFragment : Fragment() {
         initHomeViewPager()
     }
 
-
     private fun initHomeViewPager(){
+        binding.apply {
+            val homeViewPagerAdapter = ZigZagViewPagerAdapter(requireActivity())
+            with(homeViewPagerAdapter) {
+                fragmentList = listOf(HomeTab(), BrandTab(), BestTab(), NewTab())
+                with(vpHome) {
+                    adapter = homeViewPagerAdapter
+                    isUserInputEnabled = false
+                }
+            }
 
-        val homeViewPagerAdapter = SampleAdapter.PagerFragmentStateAdapter(requireActivity())
-        binding.vpHome.adapter = homeViewPagerAdapter
-        binding.vpHome.isUserInputEnabled = false
-        val homeTabLayout = binding.tlHome
-        TabLayoutMediator(homeTabLayout, binding.vpHome ){tab, position ->
-            tab.text = homeTabText[position]
-        }.attach()
+            TabLayoutMediator(tlHome, vpHome) { tab, position ->
+                tab.text = homeTabText[position]
+            }.attach()
+        }
     }
 
     override fun onDestroyView() {

@@ -8,33 +8,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import org.sopt.R
 import org.sopt.databinding.FragmentHomeTabBinding
-import org.sopt.ui.adapter.SampleAdapter
-import org.sopt.ui.adapter.SampleAdapter.HomeTodayGoAdapter.Companion.ALL_BRAND
-import org.sopt.ui.adapter.SampleAdapter.HomeTodayGoAdapter.Companion.TODAY_GO
+import org.sopt.ui.adapter.*
+import org.sopt.ui.adapter.HomeTodayGoAdapter.Companion.ALL_BRAND
+import org.sopt.ui.adapter.HomeTodayGoAdapter.Companion.TODAY_GO
 import org.sopt.ui.view.home.data.*
 import org.sopt.ui.view.home.model.*
 
 class HomeTab : Fragment() {
     private val recDataList = mutableListOf<HomeRecItemInfo>()
-    private val homeImageViewPagerAdapter = SampleAdapter.HomeTabViewPagerAdapter()
-    private val homeTodayGoAdapter = SampleAdapter.HomeTodayGoAdapter()
-    private val homeRecItemAdapter = SampleAdapter.HomeRecItemAdapter()
-    private val homeThisItemAdapter = SampleAdapter.HomeThisItemAdapter()
-    private val homeThisItemTwoAdapter = SampleAdapter.HomeThisItemTwoAdapter()
-    private lateinit var homeThisItemDataSource: HomeThisItemDataSource
-    private lateinit var homeRecItemDataSource: HomeRecItemDataSource
-    private lateinit var homeTodayGoDataSource: HomeTodayGoDataSource
-    private lateinit var homeThisItemTwoDataSource: HomeThisItemTwoDataSource
+    private val homeImageViewPagerAdapter = HomeTabViewPagerAdapter()
+    private val homeTodayGoAdapter = HomeTodayGoAdapter()
+    private val homeRecItemAdapter = HomeRecItemAdapter()
+    private val homeThisItemAdapter = HomeThisItemAdapter()
+    private val homeThisItemTwoAdapter = HomeThisItemTwoAdapter()
+    private val homeThisItemDataSource = LocalHomeThisItemDataSource()
+    private val homeRecItemDataSource = LocalHomeRecItemDataSource()
+    private val homeTodayGoDataSource = LocalHomeTodayGoDataSource()
+    private val homeThisItemTwoDataSource = LocalHomeThisItemTwoDataSource()
+    private val homeTabViewPagerDataSource = LocalHomeTabViewPagerDataSource()
     private var _binding: FragmentHomeTabBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
-    private var numViewPager = 4
     private var currentPosition = 0
     private var homeViewPagerHandler = HomeViewPagerHandler()
-    private val intervalTime = 2000.toLong()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -49,61 +46,36 @@ class HomeTab : Fragment() {
         initHomeImageViewPager()
         initHomeTodayGo()
         initHomeRecItem()
-        initClickButton()
+        initClickEvent()
         initHomeThisItem()
         initHomeThisItemTwo()
-        initResetButton()
-        initResetTwoButton()
-        initResetThreeButton()
     }
 
-
     private fun initHomeImageViewPager() {
-        binding.vpHomeImage.adapter = homeImageViewPagerAdapter
-        homeImageViewPagerAdapter.data = getImageList()
-        binding.sdiHomeTabImage.setViewPager2(binding.vpHomeImage)
-        binding.vpHomeImage.setCurrentItem(currentPosition, false)
+        binding.apply {
+            with(vpHomeImage) {
+                adapter = homeImageViewPagerAdapter
+                homeImageViewPagerAdapter.data = getImageList()
 
-        binding.vpHomeImage.apply {
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                    when (state) {
-                        ViewPager2.SCROLL_STATE_IDLE -> autoScrollStart(intervalTime)
-                        ViewPager2.SCROLL_STATE_DRAGGING -> autoScrollStop()
+                sdiHomeTabImage.setViewPager2(this)
+                setCurrentItem(currentPosition, false)
+
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageScrollStateChanged(state: Int) {
+                        super.onPageScrollStateChanged(state)
+                        when (state) {
+                            ViewPager2.SCROLL_STATE_IDLE -> autoScrollStart()
+                            ViewPager2.SCROLL_STATE_DRAGGING -> autoScrollStop()
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }
 
     private fun initHomeTodayGo() {
         binding.rvTodayDelivery.adapter = homeTodayGoAdapter
         homeTodayGoAdapter.data = fetchTodayData().subList(0, 3)
-    }
-
-    private fun initResetButton() {
-        binding.ivReset.setOnClickListener {
-            val list = fetchTodayData()
-            list.shuffle()
-            homeTodayGoAdapter.data = list.subList(0,3)
-        }
-    }
-
-    private fun initResetTwoButton(){
-        binding.ivReset2.setOnClickListener {
-            val reset = fetchRecData()
-            reset.shuffle()
-            homeRecItemAdapter.data = reset.subList(0,3)
-        }
-    }
-
-    private fun initResetThreeButton(){
-        binding.ivReset3.setOnClickListener {
-            val resets = fetchThisItemData()
-            resets.shuffle()
-            homeThisItemAdapter.data = resets
-        }
     }
 
     private fun initHomeRecItem() {
@@ -119,57 +91,58 @@ class HomeTab : Fragment() {
 
     private fun initHomeThisItemTwo() {
         binding.rvThisItemTwo.adapter = homeThisItemTwoAdapter
-        binding.rvThisItemTwo.layoutManager = GridLayoutManager(this.context, 2)
         homeThisItemTwoAdapter.submitList(fetchThisItemTwoData())
     }
 
-    private fun initClickButton() {
-        binding.ivSelectorCheck.setOnClickListener {
-            it.isSelected = !it.isSelected
+    private fun initClickEvent() {
+        binding.apply {
+            ivSelectorCheck.setOnClickListener {
+                it.isSelected = !it.isSelected
 
-            when (it.isSelected) {
-                true -> homeTodayGoAdapter.setItemViewType(TODAY_GO)
-                false -> homeTodayGoAdapter.setItemViewType(ALL_BRAND)
+                when (it.isSelected) {
+                    true -> homeTodayGoAdapter.setItemViewType(TODAY_GO)
+                    false -> homeTodayGoAdapter.setItemViewType(ALL_BRAND)
+                }
+            }
+
+            tvAgree.setOnClickListener {
+                recDataList.addAll(fetchRecData())
+                homeRecItemAdapter.data = recDataList
+            }
+
+            ivReset.setOnClickListener {
+                val todayDataList = fetchTodayData()
+                todayDataList.shuffle()
+                homeTodayGoAdapter.data = todayDataList.subList(0,3)
+            }
+
+            ivReset2.setOnClickListener {
+                val recDataList = fetchRecData()
+                recDataList.shuffle()
+                homeRecItemAdapter.data = recDataList.subList(0,3)
+            }
+
+            ivReset3.setOnClickListener {
+                val thisItemList = fetchThisItemData()
+                thisItemList.shuffle()
+                homeThisItemAdapter.data = thisItemList
             }
         }
-
-        binding.tvAgree.setOnClickListener {
-            recDataList.addAll(fetchRecData())
-            homeRecItemAdapter.data = recDataList
-        }
     }
 
+    private fun fetchTodayData(): MutableList<HomeTodayGoInfo> = homeTodayGoDataSource.fetchTodayData()
 
-    private fun fetchTodayData(): MutableList<HomeTodayGoInfo> {
-        homeTodayGoDataSource = LocalHomeTodayGoDataSource()
-        return homeTodayGoDataSource.fetchTodayData()
-    }
+    private fun fetchRecData(): MutableList<HomeRecItemInfo> = homeRecItemDataSource.fetchRecData().subList(0, 3)
 
-    private fun fetchRecData(): MutableList<HomeRecItemInfo> {
-        homeRecItemDataSource = LocalHomeRecItemDataSource()
-        return homeRecItemDataSource.fetchRecData().subList(0, 3)
-    }
+    private fun fetchThisItemData(): MutableList<HomeThisItemInfo> = homeThisItemDataSource.fetchThisItemData()
 
-    private fun fetchThisItemData(): MutableList<HomeThisItemInfo> {
-        homeThisItemDataSource = LocalHomeThisItemDataSource()
-        return homeThisItemDataSource.fetchThisItemData().subList(0, 3)
-    }
+    private fun fetchThisItemTwoData(): MutableList<HomeThisItemTwoInfo> = homeThisItemTwoDataSource.fetchThisItemTwoData()
 
-    private fun fetchThisItemTwoData(): MutableList<HomeThisItemTwoInfo> {
-        homeThisItemTwoDataSource = LocalHomeThisItemTwoDataSource()
-        return homeThisItemTwoDataSource.fetchThisItemTwoData()
-    }
+    private fun getImageList(): MutableList<HomeTabViewPagerImage> = homeTabViewPagerDataSource.fetchData()
 
-
-    private fun getImageList(): MutableList<HomeTabViewPagerImage> {
-        return mutableListOf<HomeTabViewPagerImage>(HomeTabViewPagerImage(R.drawable.ic_image_1),
-                HomeTabViewPagerImage(R.drawable.ic_image_2), HomeTabViewPagerImage(R.drawable.ic_image_3),
-                HomeTabViewPagerImage(R.drawable.ic_image_4))
-    }
-
-    private fun autoScrollStart(intervalTime: Long) {
+    private fun autoScrollStart() {
         homeViewPagerHandler.removeMessages(0)
-        homeViewPagerHandler.sendEmptyMessageDelayed(0, intervalTime)
+        homeViewPagerHandler.sendEmptyMessageDelayed(0, INTERVAL_TIME)
     }
 
     private fun autoScrollStop() {
@@ -182,12 +155,11 @@ class HomeTab : Fragment() {
 
             if (msg.what == 0) {
                 binding.vpHomeImage.setCurrentItem(++currentPosition, true)
-                autoScrollStart(intervalTime)
-            }
-            if (currentPosition == 4) {
-                currentPosition = -1
+                autoScrollStart()
             }
 
+            if (currentPosition == 4)
+                currentPosition = -1
         }
     }
 
@@ -198,11 +170,15 @@ class HomeTab : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        autoScrollStart(intervalTime)
+        autoScrollStart()
     }
 
     override fun onPause() {
         super.onPause()
         autoScrollStop()
+    }
+
+    companion object {
+        private const val INTERVAL_TIME = 2000.toLong()
     }
 }
