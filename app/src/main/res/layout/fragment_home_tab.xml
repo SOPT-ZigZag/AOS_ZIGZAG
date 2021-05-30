@@ -54,8 +54,8 @@
 
     <ImageButton
         android:id="@+id/iv_reset"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/ic_reset"
@@ -83,12 +83,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_today_delivery"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_ye_bin" />
 
@@ -152,7 +154,7 @@
         android:id="@+id/tv_agree"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/agree"
@@ -198,25 +200,29 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_this_item"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_reset_3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_this_item_two"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="12dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_marginEnd="8dp"
         android:numColumns="auto_fit"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_this_item"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:spanCount="2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
