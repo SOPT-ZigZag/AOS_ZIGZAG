@@ -4,8 +4,8 @@ import org.sopt.R
 import org.sopt.ui.view.home.model.HomeTabViewPagerImage
 
 class LocalHomeTabViewPagerDataSource : HomeViewPagerDataSource {
-    override fun fetchData(): List<HomeTabViewPagerImage> {
-        return listOf<HomeTabViewPagerImage>(
+    override fun fetchData(): MutableList<HomeTabViewPagerImage> {
+        return mutableListOf<HomeTabViewPagerImage>(
                 HomeTabViewPagerImage(
                         homeViewPager = R.drawable.ic_image_1
                 ),
