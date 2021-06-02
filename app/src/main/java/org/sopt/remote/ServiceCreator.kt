@@ -17,8 +17,8 @@ object ServiceCreator {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val HomeService = retrofit.create(HomeService::class.java)
-    val StoreService = retrofit.create(StoreService::class.java)
+    val homeService:HomeService = retrofit.create(HomeService::class.java)
+    val storeService:StoreService = retrofit.create(StoreService::class.java)
 
     private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
