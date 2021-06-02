@@ -3,20 +3,23 @@ package org.sopt.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemStoryBinding
+import org.sopt.remote.model.ResStory
 import org.sopt.ui.view.store.data.model.StoryData
+import org.sopt.util.setImage
 
 class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>() {
-    private var storyButtonClickListener: ((Int, String)-> Unit) ?= null
-    private val _data = mutableListOf<StoryData>()
-    var data : List<StoryData> = _data
+    private var storyButtonClickListener: ((String, String)-> Unit) ?= null
+    private val _data = mutableListOf<ResStory>()
+    var data : List<ResStory> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
             notifyDataSetChanged()
         }
 
-    fun setStoryButtonClickListener(listener : (Int, String)-> Unit) {
+    fun setStoryButtonClickListener(listener : (String, String)-> Unit) {
         this.storyButtonClickListener = listener
     }
 
@@ -37,13 +40,13 @@ class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>(
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(storyData: StoryData) {
+        fun bind(resStory: ResStory) {
             binding.apply {
-                with(storyData) {
+                with(resStory.data) {
                     tvBrand.text = brand
-                    tvView.text = view
-                    ivStory.setImageResource(img)
-                    ivSmallStory.setImageResource(img)
+                    tvView.text = view.toString()
+                    setImage(ivStory, img)
+                    setImage(ivSmallStory, img)
                     ivSmallStory.setOnClickListener { storyButtonClickListener?.invoke(img, brand) }
                 }
             }

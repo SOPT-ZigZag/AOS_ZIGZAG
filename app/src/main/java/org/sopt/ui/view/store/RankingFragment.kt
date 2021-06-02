@@ -5,20 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.sopt.databinding.FragmentRankingBinding
+import org.sopt.remote.datasource.StoreRemoteDataSourceImpl
 import org.sopt.ui.adapter.BrandListAdapter
 import org.sopt.ui.adapter.BrandListAdapter.Companion.Z_ONLY
 import org.sopt.ui.adapter.BrandListAdapter.Companion.ALL_BRAND
-import org.sopt.ui.view.store.data.datasource.StoreDataSource
-import org.sopt.ui.view.store.data.datasource.StoreDataSourceImpl
-import org.sopt.ui.view.store.data.model.BrandData
 
 class RankingFragment : Fragment() {
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
-    private val brandList = mutableListOf<BrandData>()
     private val brandListAdapter = BrandListAdapter()
-    private lateinit var storeDataSource: StoreDataSource
+    private val storeRemoteDataSource = StoreRemoteDataSourceImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +31,8 @@ class RankingFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        storeDataSource = StoreDataSourceImpl()
         binding.rvRanking.adapter = brandListAdapter
-        brandList.addAll(storeDataSource.getBrandData())
-        brandListAdapter.data = brandList
+        getShoppingMall()
     }
 
     private fun initClickEvent() {
@@ -56,9 +53,17 @@ class RankingFragment : Fragment() {
             }
 
             btnMore.setOnClickListener {
-                brandList.addAll(storeDataSource.getBrandData())
-                brandListAdapter.data = brandList
+                //brandList.addAll(storeDataSource.getBrandData())
+                //brandListAdapter.data = brandList
             }
+        }
+    }
+
+    private fun getShoppingMall() {
+        lifecycleScope.launch {
+            runCatching { storeRemoteDataSource.getShoppingMall() }
+                .onSuccess { brandListAdapter.data = it }
+                .onFailure { it.printStackTrace() }
         }
     }
 
