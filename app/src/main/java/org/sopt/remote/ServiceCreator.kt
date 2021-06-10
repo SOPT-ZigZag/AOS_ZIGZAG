@@ -9,7 +9,7 @@ import org.sopt.remote.api.StoreService
 import org.sopt.remote.network.ContentInterceptor
 
 object ServiceCreator {
-    private const val BASE_URL = "http://18.217.241.233:5000/api"
+    private const val BASE_URL = "http://18.217.241.233:5000/api/"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
