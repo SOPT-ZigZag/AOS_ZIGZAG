@@ -125,12 +125,12 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="11dp"
             android:textSize="14sp"
+            android:text="@string/minus"
             android:textColor="@color/cold_gray"
             android:includeFontPadding="false"
             android:fontFamily="@font/noto_sans_kr_bold"
             app:layout_constraintEnd_toStartOf="@+id/ib_star"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/minus"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <View
             android:id="@+id/line"
