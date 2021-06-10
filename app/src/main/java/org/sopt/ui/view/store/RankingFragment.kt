@@ -63,7 +63,7 @@ class RankingFragment : Fragment() {
     private fun getShoppingMall() {
         lifecycleScope.launch {
             runCatching { storeRemoteDataSource.getShoppingMall() }
-                .onSuccess { brandListAdapter.data = it }
+                .onSuccess { brandListAdapter.data = listOf(it) }
                 .onFailure { it.printStackTrace() }
         }
     }

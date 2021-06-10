@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import org.sopt.R
 import org.sopt.databinding.FragmentStoreBinding
 import org.sopt.remote.datasource.StoreRemoteDataSourceImpl
+import org.sopt.remote.model.ResStory
 import org.sopt.ui.adapter.ZigZagViewPagerAdapter
 import org.sopt.ui.adapter.StoryListAdapter
 import org.sopt.ui.view.story.StoryActivity
@@ -22,6 +23,7 @@ class StoreFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var storeViewPagerAdapter: ZigZagViewPagerAdapter
     private val storyListAdapter = StoryListAdapter()
+    private val storyList = mutableListOf<ResStory>()
     private val storeRemoteDataSource = StoreRemoteDataSourceImpl()
 
     override fun onCreateView(
@@ -52,6 +54,8 @@ class StoreFragment : Fragment() {
             rvStory.adapter = storyListAdapter
             getStory()
 
+            storyListAdapter.data = storyList
+
             storyListAdapter.setStoryButtonClickListener { img, brand ->
                 startActivity(
                     Intent(requireActivity(), StoryActivity::class.java)
@@ -65,7 +69,7 @@ class StoreFragment : Fragment() {
     private fun getStory() {
         lifecycleScope.launch {
             runCatching { storeRemoteDataSource.getStory() }
-                .onSuccess { storyListAdapter.data = it }
+                .onSuccess { storyListAdapter.data = listOf(it) }
                 .onFailure { it.printStackTrace() }
         }
     }

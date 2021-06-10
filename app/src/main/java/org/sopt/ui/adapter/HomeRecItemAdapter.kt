@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeRecItemBinding
 import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeRecItemInfo
+import org.sopt.util.NumberUtil.convertIntToMoneyString
 
 class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemViewHolder>() {
     private val _data = mutableListOf<ResItem.Data.Item>()
@@ -30,9 +31,8 @@ class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemVi
                     .load(resItem.img)
                 tvIntense2.text = resItem.brand_name
                 tvRcItemName.text = resItem.item_name
-                tvRcPrice.text = resItem.price.toString()
-                tvRcPercent.text = "20%"
-                tvRcItemDiscount.text = resItem.discount_idx.toString()
+                tvRcPrice.text = convertIntToMoneyString(resItem.price)
+                tvRcPercent.text = "72%"
                 tvRcPrice2.text = "15000"
                 if (!resItem.delivery_today) {
                     ivThisTodayGo.visibility = View.INVISIBLE

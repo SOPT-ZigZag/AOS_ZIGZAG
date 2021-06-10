@@ -92,7 +92,7 @@ class HomeTab : Fragment() {
     private fun getItem(){
         lifecycleScope.launch {
             runCatching {homeRemoteDataSource.getItem() }
-                .onSuccess { homeRecItemAdapter.data = it.data.item}
+                .onSuccess { homeRecItemAdapter.data = it.data.item.subList(0,3)}
                 .onFailure{it.printStackTrace()}
 
         }
