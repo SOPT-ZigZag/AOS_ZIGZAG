@@ -58,7 +58,8 @@ class RankingFragment : Fragment() {
             }
         }
     }
-
+    //lifecycleScope : 이 Fragment의 Lifecycle 안에 또 다른 쓰레드를 만들어줌.
+    //globalScope : 애플리케이션 전체 (함부로 쓰면 안됨)
     private fun getShoppingMall() {
         lifecycleScope.launch {
             runCatching { storeRemoteDataSource.getShoppingMall() }

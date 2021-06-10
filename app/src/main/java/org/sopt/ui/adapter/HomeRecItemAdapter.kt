@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeRecItemBinding
+import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeRecItemInfo
 
 class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemViewHolder>() {
-    private val _data = mutableListOf<HomeRecItemInfo>()
-    var data: List<HomeRecItemInfo> = _data
+    private val _data = mutableListOf<ResItem.Data.Item>()
+    var data: List<ResItem.Data.Item> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -22,16 +24,17 @@ class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemVi
 
     class HomeRecItemViewHolder(private val binding: ItemHomeRecItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onRecBind(homeRecItemInfo: HomeRecItemInfo) {
+        fun onRecBind (resItem : ResItem.Data.Item) {
             binding.apply {
-                ivRcImage.setImageResource(homeRecItemInfo.recItemImage)
-                tvIntense2.text = homeRecItemInfo.recItemIntense
-                tvRcItemName.text = homeRecItemInfo.recItemName
-                tvRcPrice.text = homeRecItemInfo.recItemPrice
-                tvRcPercent.text = homeRecItemInfo.recItemPercent
-                tvRcItemDiscount.text = homeRecItemInfo.recItemDis
-                tvRcPrice2.text = homeRecItemInfo.recItemPrice_2
-                if (!homeRecItemInfo.recTodayGo_2) {
+                Glide.with(ivRcImage.context)
+                    .load(resItem.img)
+                tvIntense2.text = resItem.brand_name
+                tvRcItemName.text = resItem.item_name
+                tvRcPrice.text = resItem.price.toString()
+                tvRcPercent.text = "20%"
+                tvRcItemDiscount.text = resItem.discount_idx.toString()
+                tvRcPrice2.text = "15000"
+                if (!resItem.delivery_today) {
                     ivThisTodayGo.visibility = View.INVISIBLE
                 } else {
                     ivThisTodayGo.visibility = View.VISIBLE
@@ -59,6 +62,6 @@ class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemVi
     }
 
     override fun onBindViewHolder(holder: HomeRecItemViewHolder, position: Int) {
-        holder.onRecBind(data[position])
+        holder.onRecBind(_data[position])
     }
 }
