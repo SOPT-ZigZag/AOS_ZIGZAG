@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import kotlinx.coroutines.launch
 import org.sopt.databinding.FragmentHomeTabBinding
+import org.sopt.remote.ServiceCreator
+import org.sopt.remote.datasource.HomeRemoteDataSource
+import org.sopt.remote.datasource.HomeRemoteDataSourceImpl
+import org.sopt.remote.model.ResBanner
 import org.sopt.ui.adapter.*
 import org.sopt.ui.adapter.HomeTodayGoAdapter.Companion.ALL_BRAND
 import org.sopt.ui.adapter.HomeTodayGoAdapter.Companion.TODAY_GO
@@ -32,6 +39,7 @@ class HomeTab : Fragment() {
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화 되지 않았습니다.")
     private var currentPosition = 0
     private var homeViewPagerHandler = HomeViewPagerHandler()
+    private val homeRemoteDataSource = HomeRemoteDataSourceImpl()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -55,8 +63,8 @@ class HomeTab : Fragment() {
         binding.apply {
             with(vpHomeImage) {
                 adapter = homeImageViewPagerAdapter
-                homeImageViewPagerAdapter.data = getImageList()
 
+                getBanner()
                 sdiHomeTabImage.setViewPager2(this)
                 setCurrentItem(currentPosition, false)
 
@@ -72,7 +80,23 @@ class HomeTab : Fragment() {
             }
         }
     }
+    private fun getBanner(){
+        lifecycleScope.launch {
+            runCatching {homeRemoteDataSource.getBanner()}
+                .onSuccess { homeImageViewPagerAdapter.data = listOf(it) }
+                .onFailure { it.printStackTrace() }
+        }
+    }
 
+
+    private fun getItem(){
+        lifecycleScope.launch {
+            runCatching {homeRemoteDataSource.getItem() }
+                .onSuccess { homeRecItemAdapter.data = it.data.item}
+                .onFailure{it.printStackTrace()}
+
+        }
+    }
     private fun initHomeTodayGo() {
         binding.rvTodayDelivery.adapter = homeTodayGoAdapter
         homeTodayGoAdapter.data = fetchTodayData().subList(0, 3)
@@ -81,7 +105,7 @@ class HomeTab : Fragment() {
     private fun initHomeRecItem() {
         binding.rvRecItem.adapter = homeRecItemAdapter
         recDataList.addAll(fetchRecData())
-        homeRecItemAdapter.data = recDataList
+        getItem()
     }
 
     private fun initHomeThisItem() {
@@ -107,7 +131,7 @@ class HomeTab : Fragment() {
 
             tvAgree.setOnClickListener {
                 recDataList.addAll(fetchRecData())
-                homeRecItemAdapter.data = recDataList
+                getItem()
             }
 
             ivReset.setOnClickListener {
@@ -119,7 +143,7 @@ class HomeTab : Fragment() {
             ivReset2.setOnClickListener {
                 val recDataList = fetchRecData()
                 recDataList.shuffle()
-                homeRecItemAdapter.data = recDataList.subList(0,3)
+                getItem()
             }
 
             ivReset3.setOnClickListener {
@@ -138,7 +162,6 @@ class HomeTab : Fragment() {
 
     private fun fetchThisItemTwoData(): MutableList<HomeThisItemTwoInfo> = homeThisItemTwoDataSource.fetchThisItemTwoData()
 
-    private fun getImageList(): MutableList<HomeTabViewPagerImage> = homeTabViewPagerDataSource.fetchData()
 
     private fun autoScrollStart() {
         homeViewPagerHandler.removeMessages(0)

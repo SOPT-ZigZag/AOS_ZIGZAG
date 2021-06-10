@@ -1,14 +1,9 @@
-package org.sopt.remote.api
+package org.sopt.remote.datasource
 
 import org.sopt.remote.model.ResBanner
 import org.sopt.remote.model.ResItem
-import retrofit2.http.GET
-import retrofit2.http.Headers
 
-interface HomeService {
-    @GET("banner")
+interface HomeRemoteDataSource {
     suspend fun getBanner(): ResBanner
-
-    @GET("main/item")
     suspend fun getItem(): ResItem
 }
