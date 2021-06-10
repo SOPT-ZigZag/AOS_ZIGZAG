@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 import org.sopt.R
 import org.sopt.databinding.FragmentStoreBinding
+import org.sopt.remote.datasource.StoreRemoteDataSourceImpl
 import org.sopt.ui.adapter.ZigZagViewPagerAdapter
 import org.sopt.ui.adapter.StoryListAdapter
-import org.sopt.ui.view.store.data.datasource.StoreDataSource
-import org.sopt.ui.view.store.data.datasource.StoreDataSourceImpl
 import org.sopt.ui.view.story.StoryActivity
 
 
@@ -21,7 +22,7 @@ class StoreFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var storeViewPagerAdapter: ZigZagViewPagerAdapter
     private val storyListAdapter = StoryListAdapter()
-    private lateinit var storeDataSource: StoreDataSource
+    private val storeRemoteDataSource = StoreRemoteDataSourceImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,6 @@ class StoreFragment : Fragment() {
         val tabLabel = listOf(getString(R.string.ranking), getString(R.string.bookmark))
 
         binding.apply {
-            storeDataSource = StoreDataSourceImpl()
             storeViewPagerAdapter = ZigZagViewPagerAdapter(requireActivity())
 
             with(storeViewPagerAdapter) {
@@ -50,7 +50,7 @@ class StoreFragment : Fragment() {
             }.attach()
 
             rvStory.adapter = storyListAdapter
-            storyListAdapter.data = storeDataSource.getStoryData()
+            getStory()
 
             storyListAdapter.setStoryButtonClickListener { img, brand ->
                 startActivity(
@@ -59,6 +59,14 @@ class StoreFragment : Fragment() {
                     .putExtra(BRAND_NAME, brand)
                 )
             }
+        }
+    }
+
+    private fun getStory() {
+        lifecycleScope.launch {
+            runCatching { storeRemoteDataSource.getStory() }
+                .onSuccess { storyListAdapter.data = it }
+                .onFailure { it.printStackTrace() }
         }
     }
 

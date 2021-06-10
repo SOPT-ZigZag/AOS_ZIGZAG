@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import org.sopt.R
 import org.sopt.databinding.ActivityStoryBinding
 import org.sopt.ui.view.store.StoreFragment.Companion.BRAND_NAME
 import org.sopt.ui.view.store.StoreFragment.Companion.IMG
+import org.sopt.util.setImage
 
 class StoryActivity : AppCompatActivity() {
     lateinit var binding : ActivityStoryBinding
@@ -42,12 +42,14 @@ class StoryActivity : AppCompatActivity() {
     }
 
     private fun setStory() {
-        val storyImage = intent.getIntExtra(IMG, R.drawable.img_moderntage_1)
+        val storyImage = intent.getStringExtra(IMG)
         val brandName = intent.getStringExtra(BRAND_NAME)
 
         binding.apply {
-            ivStory.setImageResource(storyImage)
-            ivCircleStory.setImageResource(storyImage)
+            if (storyImage != null) {
+                setImage(ivStory, storyImage)
+                setImage(ivCircleStory, storyImage)
+            }
             tvStore.text = brandName
         }
     }

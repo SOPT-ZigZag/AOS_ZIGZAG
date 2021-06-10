@@ -1,5 +1,7 @@
 package org.sopt.remote.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ResShoppingMall(
     val status: Int,
     val success: Boolean,
@@ -12,6 +14,9 @@ data class ResShoppingMall(
         val brand: String,
         val style: String,
         val coupon: Int,
-        val bookmark: Boolean
+        val bookmark: Boolean,
+        @SerializedName("z_only")
+        val zOnly: Boolean,
+        val follower: Int
     )
 }

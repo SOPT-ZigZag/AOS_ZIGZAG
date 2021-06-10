@@ -6,11 +6,11 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 
 interface StoreService {
-    @GET("/store")
+    @GET("store")
     @Headers("token: token")
     suspend fun getShoppingMall(): List<ResShoppingMall>
 
-    @GET("/story")
+    @GET("story")
     @Headers("token: token")
     suspend fun getStory(): List<ResStory>
 }
