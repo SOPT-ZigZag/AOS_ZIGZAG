@@ -5,13 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import org.sopt.R
 import org.sopt.databinding.ItemStoreBinding
 import org.sopt.remote.model.ResShoppingMall
-import org.sopt.ui.view.store.data.model.BrandData
+import org.sopt.util.NumberUtil.convertIntToCouponString
+import org.sopt.util.NumberUtil.convertIntToDecimalString
 import org.sopt.util.setImage
 
 class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>() {
@@ -55,21 +53,21 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
             binding.apply {
                 with(resShoppingMall.data) {
                     if(getItemViewType(position) == Z_ONLY) {
-                        //if(!zOnly)
-                            //clStore.visibility = View.GONE
+                        if(!zOnly)
+                            clStore.visibility = View.GONE
                     }
 
                     tvNum.text = (position + 1).toString()
                     tvStore.text = brand
                     tvType.text = style
-                    tvCoupon.text = coupon.toString()
-                    //tvFollower.text =
+                    tvCoupon.text = convertIntToCouponString(coupon)
+                    tvFollower.text = convertIntToDecimalString(follower)
                     setImage(ivCircleStore, img)
 
-                    /*if (!zOnly)
+                    if (!zOnly)
                         ivZOnly.visibility = View.INVISIBLE
 
-                    if (rankChange > 0) {
+                    /*if (rankChange > 0) {
                         tvFollower.text = "+$rankChange"
                         tvFollower.setTextColor(getColor(context, R.color.brand_pink))
                     } else {

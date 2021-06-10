@@ -3,10 +3,9 @@ package org.sopt.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemStoryBinding
 import org.sopt.remote.model.ResStory
-import org.sopt.ui.view.store.data.model.StoryData
+import org.sopt.util.NumberUtil.convertIntToDecimalString
 import org.sopt.util.setImage
 
 class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>() {
@@ -44,7 +43,7 @@ class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>(
             binding.apply {
                 with(resStory.data) {
                     tvBrand.text = brand
-                    tvView.text = view.toString()
+                    tvView.text = convertIntToDecimalString(view)
                     setImage(ivStory, img)
                     setImage(ivSmallStory, img)
                     ivSmallStory.setOnClickListener { storyButtonClickListener?.invoke(img, brand) }
