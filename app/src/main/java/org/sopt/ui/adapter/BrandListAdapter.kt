@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.databinding.ItemStoreBinding
 import org.sopt.remote.model.ResShoppingMall
-import org.sopt.util.NumberUtil.convertIntToCouponString
 import org.sopt.util.NumberUtil.convertIntToDecimalString
+import org.sopt.util.NumberUtil.convertIntToMoneyString
 import org.sopt.util.setImage
 
 class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>() {
@@ -60,7 +60,7 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
                     tvNum.text = (position + 1).toString()
                     tvStore.text = brand
                     tvType.text = style
-                    tvCoupon.text = convertIntToCouponString(coupon)
+                    tvCoupon.text = "최대 " + convertIntToMoneyString(coupon) + "원 쿠폰"
                     tvFollower.text = convertIntToDecimalString(follower)
                     setImage(ivCircleStore, img)
 

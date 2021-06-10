@@ -8,9 +8,9 @@ import retrofit2.http.Headers
 interface StoreService {
     @GET("store")
     @Headers("token: token")
-    suspend fun getShoppingMall(): List<ResShoppingMall>
+    suspend fun getShoppingMall(): ResShoppingMall
 
     @GET("story")
     @Headers("token: token")
-    suspend fun getStory(): List<ResStory>
+    suspend fun getStory(): ResStory
 }
