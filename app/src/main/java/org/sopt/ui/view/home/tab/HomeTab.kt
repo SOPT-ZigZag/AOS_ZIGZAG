@@ -94,12 +94,34 @@ class HomeTab : Fragment() {
             runCatching {homeRemoteDataSource.getItem() }
                 .onSuccess { homeRecItemAdapter.data = it.data.item.subList(0,3)}
                 .onFailure{it.printStackTrace()}
+        }
+    }
 
+    private fun getHomeThisItem(){
+        lifecycleScope.launch {
+            runCatching {homeRemoteDataSource.getItem() }
+                .onSuccess {  homeThisItemAdapter.data = it.data.item}
+                .onFailure{it.printStackTrace()}
+        }
+    }
+
+    private fun getHomThisTwoItem() {
+        lifecycleScope.launch {
+            runCatching { homeRemoteDataSource.getItem() }
+                .onSuccess { homeThisItemTwoAdapter.data = it.data.item }
+                .onFailure { it.printStackTrace() }
+        }
+    }
+    private fun getHomeTodayGoItem() {
+        lifecycleScope.launch {
+            runCatching { homeRemoteDataSource.getItem() }
+                .onSuccess { homeTodayGoAdapter.data = it.data.item }
+                .onFailure { it.printStackTrace() }
         }
     }
     private fun initHomeTodayGo() {
         binding.rvTodayDelivery.adapter = homeTodayGoAdapter
-        homeTodayGoAdapter.data = fetchTodayData().subList(0, 3)
+        getHomeTodayGoItem()
     }
 
     private fun initHomeRecItem() {
@@ -110,12 +132,12 @@ class HomeTab : Fragment() {
 
     private fun initHomeThisItem() {
         binding.rvThisItem.adapter = homeThisItemAdapter
-        homeThisItemAdapter.data =fetchThisItemData()
+        getHomeThisItem()
     }
 
     private fun initHomeThisItemTwo() {
         binding.rvThisItemTwo.adapter = homeThisItemTwoAdapter
-        homeThisItemTwoAdapter.submitList(fetchThisItemTwoData())
+        getHomThisTwoItem()
     }
 
     private fun initClickEvent() {
@@ -137,7 +159,7 @@ class HomeTab : Fragment() {
             ivReset.setOnClickListener {
                 val todayDataList = fetchTodayData()
                 todayDataList.shuffle()
-                homeTodayGoAdapter.data = todayDataList.subList(0,3)
+                getHomeTodayGoItem()
             }
 
             ivReset2.setOnClickListener {
@@ -149,7 +171,7 @@ class HomeTab : Fragment() {
             ivReset3.setOnClickListener {
                 val thisItemList = fetchThisItemData()
                 thisItemList.shuffle()
-                homeThisItemAdapter.data = thisItemList
+                getHomeThisItem()
             }
         }
     }
