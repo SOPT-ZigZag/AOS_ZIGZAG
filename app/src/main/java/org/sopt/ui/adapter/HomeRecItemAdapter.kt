@@ -28,6 +28,7 @@ class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemVi
             binding.apply {
                 Glide.with(ivRcImage.context)
                     .load(resItem.img)
+                    .into(ivRcImage)
                 tvIntense2.text = resItem.brand_name
                 tvRcItemName.text = resItem.item_name
                 tvRcPrice.text = resItem.price.toString()

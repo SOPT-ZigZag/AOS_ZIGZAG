@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeThisItemBinding
+import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeThisItemInfo
 
 class HomeThisItemAdapter : RecyclerView.Adapter<HomeThisItemAdapter.HomeThisItemViewHolder>() {
 
-    private val _data = mutableListOf<HomeThisItemInfo>()
-    var data: List<HomeThisItemInfo> = _data
+    private val _data = mutableListOf<ResItem.Data.Item>()
+    var data: List<ResItem.Data.Item> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -20,18 +22,20 @@ class HomeThisItemAdapter : RecyclerView.Adapter<HomeThisItemAdapter.HomeThisIte
 
     class HomeThisItemViewHolder(private val binding: ItemHomeThisItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onThisBind(homeThisItem: HomeThisItemInfo) {
+        fun onThisBind(resItem : ResItem.Data.Item) {
             binding.apply {
-                with(homeThisItem) {
-                    ivThisItem.setImageResource(homeThisItemImage)
-                    tvThisIntense.text = homeThisItemIntense
-                    tvThisTodayName.text = homeThisItemName
-                    tvThisZDiscount.text = homeThisItemDis
-                    tvThisPercent.text = homeThisItemPercent
-                    tvThisPrice.text = homeThisItemPrice
-                    tvThisPriceX.text = homeThisItemPrice_x
+                with(resItem) {
+                    Glide.with(ivThisItem.context)
+                        .load(resItem.img)
+                        .into(ivThisItem)
+                    tvThisIntense.text = brand_name
+                    tvThisTodayName.text = item_name
+                    tvThisZDiscount.text = "제트할인가"
+                    tvThisPercent.text = discount_idx.toString()
+                    tvThisPrice.text = price.toString()
+                    tvThisPriceX.text = "15000"
 
-                    when(GoThisItemQuestion) {
+                    when(delivery_today) {
                         true -> ivThisTodayGo.visibility = View.VISIBLE
                         false -> ivThisTodayGo.visibility = View.INVISIBLE
                     }
