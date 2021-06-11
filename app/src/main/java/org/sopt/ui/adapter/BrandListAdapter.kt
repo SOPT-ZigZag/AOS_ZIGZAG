@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.databinding.ItemStoreBinding
 import org.sopt.remote.model.ResShoppingMall
-import org.sopt.util.NumberUtil.convertIntToCouponString
 import org.sopt.util.NumberUtil.convertIntToDecimalString
+import org.sopt.util.NumberUtil.convertIntToMoneyString
 import org.sopt.util.setImage
 
 class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>() {
-    private val _data = mutableListOf<ResShoppingMall>()
+    private val _data = mutableListOf<ResShoppingMall.Data.Store>()
     private var viewType = ALL_BRAND
-    var data : List<ResShoppingMall> = _data
+    var data : List<ResShoppingMall.Data.Store> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -49,9 +49,9 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(resShoppingMall: ResShoppingMall, position: Int) {
+        fun bind(resShoppingMall: ResShoppingMall.Data.Store, position: Int) {
             binding.apply {
-                with(resShoppingMall.data) {
+                with(resShoppingMall) {
                     if(getItemViewType(position) == Z_ONLY) {
                         if(!zOnly)
                             clStore.visibility = View.GONE
@@ -60,7 +60,7 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
                     tvNum.text = (position + 1).toString()
                     tvStore.text = brand
                     tvType.text = style
-                    tvCoupon.text = convertIntToCouponString(coupon)
+                    tvCoupon.text = "최대 " + convertIntToMoneyString(coupon) + "원 쿠폰"
                     tvFollower.text = convertIntToDecimalString(follower)
                     setImage(ivCircleStore, img)
 

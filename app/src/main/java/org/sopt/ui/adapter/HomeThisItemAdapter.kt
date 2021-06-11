@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeThisItemBinding
 import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeThisItemInfo
+import org.sopt.util.NumberUtil.convertIntToMoneyString
 
 class HomeThisItemAdapter : RecyclerView.Adapter<HomeThisItemAdapter.HomeThisItemViewHolder>() {
 
@@ -31,9 +32,9 @@ class HomeThisItemAdapter : RecyclerView.Adapter<HomeThisItemAdapter.HomeThisIte
                     tvThisIntense.text = brand_name
                     tvThisTodayName.text = item_name
                     tvThisZDiscount.text = "제트할인가"
-                    tvThisPercent.text = discount_idx.toString()
-                    tvThisPrice.text = price.toString()
-                    tvThisPriceX.text = "15000"
+                    tvThisPercent.text = "72%"
+                    tvThisPrice.text = convertIntToMoneyString(price)
+                    tvThisPriceX.text = convertIntToMoneyString(15000)
 
                     when(delivery_today) {
                         true -> ivThisTodayGo.visibility = View.VISIBLE

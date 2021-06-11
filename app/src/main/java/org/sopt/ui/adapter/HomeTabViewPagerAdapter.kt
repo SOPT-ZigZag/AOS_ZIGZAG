@@ -4,14 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.sopt.R
 import org.sopt.databinding.ItemHomeTabImageBinding
 import org.sopt.remote.model.ResBanner
-import org.sopt.ui.view.home.model.HomeTabViewPagerImage
 
 class HomeTabViewPagerAdapter : RecyclerView.Adapter<HomeTabViewPagerAdapter.HomeTabViewPagerViewHolder>() {
-    private val _data = mutableListOf<ResBanner>()
-    var data: List<ResBanner> = _data
+    private val _data = mutableListOf<ResBanner.Data.Banner>()
+    var data: List<ResBanner.Data.Banner> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -20,9 +18,9 @@ class HomeTabViewPagerAdapter : RecyclerView.Adapter<HomeTabViewPagerAdapter.Hom
 
     class HomeTabViewPagerViewHolder(private val binding: ItemHomeTabImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(resBanner: ResBanner) {
+        fun onBind(resBanner: ResBanner.Data.Banner) {
             Glide.with(binding.ivHomeTabImage.context)
-                .load(resBanner.data.img)
+                .load(resBanner.img)
                 .into(binding.ivHomeTabImage)
         }
     }

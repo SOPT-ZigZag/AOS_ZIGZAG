@@ -8,8 +8,8 @@ object NumberUtil {
         return convertNum.format("%.1f") + "만"
     }
 
-    fun convertIntToCouponString(num : Int) : String {
-        val couponFormat = DecimalFormat("###,###")
-        return "최대 " + couponFormat.format(num) + "원 쿠폰"
+    fun convertIntToMoneyString(num : Int) : String {
+        val moneyFormat = DecimalFormat("###,###")
+        return moneyFormat.format(num)
     }
 }

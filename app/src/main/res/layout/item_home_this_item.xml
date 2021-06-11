@@ -16,12 +16,11 @@
 
         <ImageView
             android:id="@+id/iv_this_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="106dp"
+            android:layout_height="127dp"
             android:scaleType="fitXY"
             android:src="@drawable/this_item_1"
             app:layout_constraintDimensionRatio="2:3"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,12 +44,12 @@
             android:text="@string/intense"
             android:textSize="10sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_this_item"
             app:layout_constraintTop_toBottomOf="@+id/iv_this_item" />
 
         <TextView
             android:id="@+id/tv_this_today_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:ellipsize="end"
@@ -59,7 +58,8 @@
             android:singleLine="true"
             android:text="@string/today_name"
             android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/iv_this_item"
+            app:layout_constraintStart_toStartOf="@+id/tv_this_intense"
             app:layout_constraintTop_toBottomOf="@+id/tv_this_intense" />
 
         <TextView
@@ -71,7 +71,7 @@
             android:text="@string/z_discount"
             android:textColor="@color/brand_pink"
             android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_this_today_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_this_today_name" />
 
         <TextView
@@ -96,7 +96,7 @@
             android:text="@string/percent"
             android:textColor="@color/brand_pink"
             android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_this_z_discount"
             app:layout_constraintTop_toBottomOf="@id/tv_this_price" />
 
         <TextView

@@ -8,6 +8,6 @@ import org.sopt.remote.model.ResStory
 class StoreRemoteDataSourceImpl: StoreRemoteDataSource {
     private val storeService = ServiceCreator.storeService
 
-    override suspend fun getShoppingMall(): List<ResShoppingMall> = storeService.getShoppingMall()
-    override suspend fun getStory(): List<ResStory> = storeService.getStory()
+    override suspend fun getShoppingMall(): ResShoppingMall = storeService.getShoppingMall()
+    override suspend fun getStory(): ResStory = storeService.getStory()
 }

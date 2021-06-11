@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import org.sopt.R
 import org.sopt.databinding.FragmentStoreBinding
 import org.sopt.remote.datasource.StoreRemoteDataSourceImpl
+import org.sopt.remote.model.ResStory
 import org.sopt.ui.adapter.ZigZagViewPagerAdapter
 import org.sopt.ui.adapter.StoryListAdapter
 import org.sopt.ui.view.story.StoryActivity
@@ -65,7 +66,7 @@ class StoreFragment : Fragment() {
     private fun getStory() {
         lifecycleScope.launch {
             runCatching { storeRemoteDataSource.getStory() }
-                .onSuccess { storyListAdapter.data = it }
+                .onSuccess { storyListAdapter.data = it.data.story }
                 .onFailure { it.printStackTrace() }
         }
     }
