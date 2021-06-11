@@ -6,43 +6,45 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeThisItemTwoBinding
+import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeThisItemTwoInfo
 
-class HomeThisItemTwoAdapter : ListAdapter<HomeThisItemTwoInfo, HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder>(HomeThisItemTwoViewHolder.HomeThisItemTwoDiffUtil) {
+class HomeThisItemTwoAdapter : RecyclerView.Adapter<HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder>() {
+    private val _data = mutableListOf<ResItem.Data.Item>()
+    var data: List<ResItem.Data.Item> = _data
+        set(value) {
+            _data.clear()
+            _data.addAll(value)
+            notifyDataSetChanged()
+        }
+
+
 
     class HomeThisItemTwoViewHolder(private val binding: ItemHomeThisItemTwoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onThisBind(homeThisItemTwo: HomeThisItemTwoInfo) {
+        fun onThisBind(resItem: ResItem.Data.Item) {
             binding.apply {
-                with(homeThisItemTwo) {
-                    ivThisItemTwo.setImageResource(homeThisItemTwoImage)
-                    ivSelectorHeartEmpty3.setImageResource(homeThisItemTwoHeart)
-                    tvThisIntenseTwo.text = homeThisItemTwoIntense
-                    tvThisTodayNameTwo.text = homeThisItemTwoName
-                    tvThisPercentTwo.text = homeThisItemTwoPercent
-                    tvThisPriceXTwo.text = homeThisItemTwoPrice_x
-                    ivThisFreeShippingTwo.setImageResource(homeThisItemTwoFreeShipping)
-                    if (!GoThisItemTwoQuestion)
+                with(resItem) {
+                    Glide.with(ivThisItemTwo.context)
+                        .load(resItem.img)
+                        .into(ivThisItemTwo)
+                    tvThisIntenseTwo.text = brand_name
+                    tvThisTodayNameTwo.text = item_name
+                    tvThisPercentTwo.text = discount_idx.toString()
+                    tvThisPriceXTwo.text = "15000"
+                    if (!delivery_today)
                         ivThisTwoTodayGo.visibility = View.INVISIBLE
                     else
-                        ivThisTwoTodayGo.setImageResource(homeThisItemTwoGo)
+                        ivThisTwoTodayGo.visibility = View.VISIBLE
 
                     ivSelectorHeartEmpty3.setOnClickListener { it.isSelected = !it.isSelected }
                 }
             }
         }
 
-        object HomeThisItemTwoDiffUtil : DiffUtil.ItemCallback<HomeThisItemTwoInfo>() {
-            override fun areItemsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
-            }
 
-
-            override fun areContentsTheSame(oldItem: HomeThisItemTwoInfo, newItem: HomeThisItemTwoInfo): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder {
@@ -51,7 +53,11 @@ class HomeThisItemTwoAdapter : ListAdapter<HomeThisItemTwoInfo, HomeThisItemTwoA
         return HomeThisItemTwoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HomeThisItemTwoAdapter.HomeThisItemTwoViewHolder, position: Int) {
-        holder.onThisBind(getItem(position))
+    override fun onBindViewHolder(holder: HomeThisItemTwoViewHolder, position: Int) {
+        holder.onThisBind(_data[position])
+    }
+
+    override fun getItemCount(): Int {
+       return _data.size
     }
 }

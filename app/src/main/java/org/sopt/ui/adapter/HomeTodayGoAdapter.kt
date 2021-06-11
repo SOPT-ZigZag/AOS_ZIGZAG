@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.databinding.ItemHomeTodayDeliveryBinding
+import org.sopt.remote.model.ResItem
 import org.sopt.ui.view.home.model.HomeTodayGoInfo
 
 class HomeTodayGoAdapter : RecyclerView.Adapter<HomeTodayGoAdapter.HomeTodayGoViewHolder>() {
-    private val _data = mutableListOf<HomeTodayGoInfo>()
+    private val _data = mutableListOf<ResItem.Data.Item>()
     private var viewType = ALL_BRAND
-    var data: List<HomeTodayGoInfo> = _data
+    var data: List<ResItem.Data.Item> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -34,7 +36,7 @@ class HomeTodayGoAdapter : RecyclerView.Adapter<HomeTodayGoAdapter.HomeTodayGoVi
     }
 
     override fun onBindViewHolder(holder: HomeTodayGoViewHolder, position: Int) {
-        holder.onGoBind(data[position], position)
+        holder.onGoBind(_data[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -43,20 +45,23 @@ class HomeTodayGoAdapter : RecyclerView.Adapter<HomeTodayGoAdapter.HomeTodayGoVi
 
     inner class HomeTodayGoViewHolder(private val binding: ItemHomeTodayDeliveryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onGoBind(homeTodayGoInfo: HomeTodayGoInfo, position: Int) {
+        fun onGoBind(resItem: ResItem.Data.Item,  position:Int) {
             binding.apply {
-                if (getItemViewType(position) == TODAY_GO && !homeTodayGoInfo.GoQuestion)
+                if (getItemViewType(position) == TODAY_GO && ! resItem.delivery_today)
                     clHomeDelivery.visibility = View.GONE
 
-                with(homeTodayGoInfo) {
-                    ivTodayDeliveryImg.setImageResource(homeTodayImage)
-                    tvIntense.text = homeTodayIntense
-                    tvTodayName.text = homeTodayName
-                    tvZDiscount.text = homeTodayDis
-                    tvPrice.text = homeTodayPrice
-                    tvPercent.text = homeTodayPercent
-                    tvPriceX.text = homeTodayPrice_x
-                    when (GoQuestion) {
+                with(resItem) {
+                    Glide.with(ivTodayDeliveryImg.context)
+                        .load(resItem.img)
+                        .into(ivTodayDeliveryImg)
+
+                    tvIntense.text = brand_name
+                    tvTodayName.text = item_name
+                    tvZDiscount.text = "제트할인가"
+                    tvPrice.text = price.toString()
+                    tvPercent.text = discount_idx.toString()
+                    tvPriceX.text = "15000"
+                    when (resItem.delivery_today) {
                         true -> ivTodayGo.visibility = View.VISIBLE
                         false -> ivTodayGo.visibility = View.INVISIBLE
                     }
