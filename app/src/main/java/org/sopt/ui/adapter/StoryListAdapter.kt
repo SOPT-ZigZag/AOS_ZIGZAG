@@ -10,8 +10,8 @@ import org.sopt.util.setImage
 
 class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>() {
     private var storyButtonClickListener: ((String, String)-> Unit) ?= null
-    private val _data = mutableListOf<ResStory>()
-    var data : List<ResStory> = _data
+    private val _data = mutableListOf<ResStory.Data.Story>()
+    var data : List<ResStory.Data.Story> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -39,14 +39,11 @@ class StoryListAdapter : RecyclerView.Adapter<StoryListAdapter.StoryViewHolder>(
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(resStory: ResStory) {
+        fun bind(resStory: ResStory.Data.Story) {
             binding.apply {
-                with(resStory.data) {
-                    tvBrand.text = brand
-                    tvView.text = convertIntToDecimalString(view)
+                with(resStory) {
                     setImage(ivStory, img)
-                    setImage(ivSmallStory, img)
-                    ivSmallStory.setOnClickListener { storyButtonClickListener?.invoke(img, brand) }
+                    ivStory.setOnClickListener { storyButtonClickListener?.invoke(img, brand) }
                 }
             }
         }

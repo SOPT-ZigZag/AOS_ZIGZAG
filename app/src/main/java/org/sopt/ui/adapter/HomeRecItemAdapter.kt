@@ -34,7 +34,7 @@ class HomeRecItemAdapter : RecyclerView.Adapter<HomeRecItemAdapter.HomeRecItemVi
                 tvRcItemName.text = resItem.item_name
                 tvRcPrice.text = convertIntToMoneyString(resItem.price)
                 tvRcPercent.text = "72%"
-                tvRcPrice2.text = "15000"
+                tvRcPrice2.text = convertIntToMoneyString(15000)
                 if (!resItem.delivery_today) {
                     ivThisTodayGo.visibility = View.INVISIBLE
                 } else {

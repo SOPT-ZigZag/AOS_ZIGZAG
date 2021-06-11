@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 
 interface HomeService {
-    @GET("banner")
+    @GET("main/banner")
     suspend fun getBanner(): ResBanner
 
     @GET("main/item")

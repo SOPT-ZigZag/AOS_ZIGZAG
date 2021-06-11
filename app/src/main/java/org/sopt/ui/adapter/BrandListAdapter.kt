@@ -13,9 +13,9 @@ import org.sopt.util.NumberUtil.convertIntToMoneyString
 import org.sopt.util.setImage
 
 class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>() {
-    private val _data = mutableListOf<ResShoppingMall>()
+    private val _data = mutableListOf<ResShoppingMall.Data.Store>()
     private var viewType = ALL_BRAND
-    var data : List<ResShoppingMall> = _data
+    var data : List<ResShoppingMall.Data.Store> = _data
         set(value) {
             _data.clear()
             _data.addAll(value)
@@ -49,9 +49,9 @@ class BrandListAdapter : RecyclerView.Adapter<BrandListAdapter.BrandViewHolder>(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(resShoppingMall: ResShoppingMall, position: Int) {
+        fun bind(resShoppingMall: ResShoppingMall.Data.Store, position: Int) {
             binding.apply {
-                with(resShoppingMall.data) {
+                with(resShoppingMall) {
                     if(getItemViewType(position) == Z_ONLY) {
                         if(!zOnly)
                             clStore.visibility = View.GONE

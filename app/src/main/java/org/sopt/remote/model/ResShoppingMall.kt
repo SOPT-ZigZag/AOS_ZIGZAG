@@ -9,14 +9,19 @@ data class ResShoppingMall(
     val data: Data
 ) {
     data class Data(
-        val img: String,
-        val store_idx: Int,
-        val brand: String,
-        val style: String,
-        val coupon: Int,
-        val bookmark: Boolean,
-        @SerializedName("z_only")
-        val zOnly: Boolean,
-        val follower: Int
-    )
+        val store: List<Store>
+    ) {
+        data class Store(
+            val _id: String,
+            val img: String,
+            val store_idx: Int,
+            val brand: String,
+            val style: String,
+            val coupon: Int,
+            val bookmark: String,
+            @SerializedName("z_only")
+            val zOnly: Boolean,
+            val follower: Int
+        )
+    }
 }

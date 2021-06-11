@@ -7,9 +7,14 @@ data class ResStory(
     val data: Data
 ) {
     data class Data(
-        val img: String,
-        val story_idx: Int,
-        val brand: String,
-        val view: Int
-    )
+        val story: List<Story>
+    ) {
+        data class Story(
+            val _id: String,
+            val img: String,
+            val story_idx: Int,
+            val brand: String,
+            val view: Int
+        )
+    }
 }

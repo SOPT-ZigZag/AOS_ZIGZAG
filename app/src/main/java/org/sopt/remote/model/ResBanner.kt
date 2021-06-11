@@ -7,7 +7,12 @@ data class ResBanner(
     val data: Data
 ) {
     data class Data(
-        val img: String,
-        val banner_idx: Int
-    )
+        val banner: List<Banner>
+    ) {
+        data class Banner(
+            val _id: String,
+            val img: String,
+            val banner_idx: Int
+        )
+    }
 }
